@@ -5,7 +5,6 @@
 
 int main(){
 game_state state;
-generation_pishery(state);
 start();
 while(state.get_phase() != phase_state::game_over){
 

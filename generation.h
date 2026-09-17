@@ -2,6 +2,6 @@
 #define GENERATION_H
 #include "struct.h"
 
-void generation_pishery(game_state& state);
+void generate_chunk(game_state& state,int cx,int cy);
 
 #endif

@@ -8,11 +8,14 @@ std::mt19937 chislo(std::chrono::steady_clock::now().time_since_epoch().count())
 std::uniform_int_distribution<int> random_(1,100);
 }
 
-void generation_pishery(game_state& state){
+void generate_chunk(game_state& state, int cx, int cy){
+long long ckey = make_ckey(chunk_of(cx),chunk_of(cy));
+auto it = state.loaded_chunks.find(ckey);
+if(it != state.loaded_chunks.end()){return;}
 for(int w = -1; w <= 1; ++w){
 for(int z = -1; z <= 1; ++z){
-    for(int x = -100; x <= 100; ++x){
-    for(int y = -100; y <= 100; ++y){
+    for(int x = cx; x < cx + chunk_size; ++x){
+    for(int y = cy; y < cy + chunk_size; ++y){
     int sluchaino = random_(chislo);
     if(sluchaino <= 45){
     struct_item stena;
@@ -22,7 +25,7 @@ for(int z = -1; z <= 1; ++z){
     stena.get_set_xyzw().set_y(y,true);
     stena.get_set_xyzw().set_z(z,true);
     stena.get_set_xyzw().set_w(w,true);
-    stena.get_set_object().textura = "E";
+    stena.get_set_object().textura = 'E';
     stena.get_set_object().id = 0;
     long long key = make_key(x,y,z,w);
     state.item[key].push_back(stena);
@@ -34,8 +37,8 @@ for(int z = -1; z <= 1; ++z){
 for(int skolko_raz_povtorit = 5; skolko_raz_povtorit > 0; --skolko_raz_povtorit){
 for(int w = -1; w <= 1; ++w){
 for(int z = -1; z <= 1; ++z){
-for(int x = -100; x <= 100; ++x){
-for(int y = -100; y <= 100; ++y){
+for(int x = cx; x < cx + chunk_size; ++x){
+for(int y = cy; y < cy + chunk_size; ++y){
 
 int ryadom_sten = 0;
 for(int X = -1; X <= 1; ++X){
@@ -70,10 +73,11 @@ struct_item stena;
     stena.get_set_xyzw().set_y(y,true);
     stena.get_set_xyzw().set_z(z,true);
     stena.get_set_xyzw().set_w(w,true);
-    stena.get_set_object().textura = "E";
+    stena.get_set_object().textura = 'E';
     stena.get_set_object().id = 0;
     state.item[key].push_back(stena);
 }
 }
 }}}}}
+state.loaded_chunks.insert(ckey);
 }

@@ -3,7 +3,11 @@
 #include <vector>
 #include <string>
 #include <unordered_map>
+#include <unordered_set>
+extern const int chunk_size;
 long long make_key(int x, int y, int z, int w);
+long long make_ckey(int x,int y);
+int chunk_of(int position);
 
 enum struct phase_state{
 standart,
@@ -14,7 +18,7 @@ object,
 };
 struct struct_object{
 bool igrok_mozhet_proyti = true;
-std::string textura = " ";
+char textura = ' ';
 int id = -1;
 };
 
@@ -53,11 +57,12 @@ int igrok_x = 0;
 int igrok_y = 0;
 int igrok_z = 0;
 int igrok_w = 0;
-phase_state phase;
+phase_state phase = phase_state::standart;
 struct_xyzw wasd;
 int wasd_timer = -1;
 public:
 std::unordered_map<long long, std::vector<struct_item>> item;
+std::unordered_set<long long> loaded_chunks;
 int get_igrok_x();
 int get_igrok_y();
 int get_igrok_z();
@@ -71,11 +76,11 @@ void set_igrok_w(int x, bool ustanovit = 0);
 phase_state get_phase();
 void set_phase(phase_state x);
 struct_xyzw& get_set_wasd();
-int& get_wasd_timer();
+int get_wasd_timer() const;
 void set_wasd_timer(int x);
-void update_teleport(game_state& state);
+void update_teleport();
 };
 
-bool proverka(game_state& state, const int& x, const int& y, const int& z, const int& w);
+bool proverka(game_state& state, const int x, const int y, const int z, const int w);
 
 #endif
