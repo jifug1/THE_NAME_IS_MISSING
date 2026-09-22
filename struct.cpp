@@ -1,5 +1,9 @@
 #include "struct.h"
-const int chunk_size = 40;
+constexpr int chunk_size = 40;
+constexpr int nuzhno_travy_v_chunke = 1440;
+constexpr int X_v_chunke = 10;
+constexpr int iterations = 1000;
+constexpr int INF = 1'000'000;
 
 long long make_key(int x, int y, int z, int w){
 long long X = x + 10000;
@@ -13,9 +17,9 @@ return (position >= 0) ? position / chunk_size :
 -((-position) + chunk_size - 1) / chunk_size;
 }
 long long make_ckey(int x, int y){
-long long X = x + 10000;
-long long Y = y + 10000;
-return (X * 20001) + Y;
+long long X = x + 250;
+long long Y = y + 250;
+return (X * 501) + Y;
 }
 
 bool proverka(game_state& state, const int x, const int y, const int z, const int w){
@@ -82,12 +86,42 @@ struct_object& struct_item::get_set_object(){return object;}
 struct_xyzw& game_state::get_set_wasd(){return wasd;}
 int game_state::get_wasd_timer() const{return wasd_timer;}
 void game_state::set_wasd_timer(int x){wasd_timer = x;}
+struct_xyzw& struct_entity::get_set_mesto_tseli(){return mesto_tseli;}
+struct_entity& struct_item::get_set_entity(){return entity;}
 void game_state::update_teleport(){
 if(wasd_timer == 0){
 igrok_x = wasd.get_x();
 igrok_y = wasd.get_y();
 igrok_z = wasd.get_z();
 igrok_w = wasd.get_w();
+wasd_timer = -1; return;
 }
 if(wasd_timer > -1){--wasd_timer;}
 }
+int struct_entity::get_id_tseli(){return id_tseli;}
+void struct_entity::set_id_tseli(int x){id_tseli = x;}
+int struct_entity::get_sytost(){return sytost;}
+void struct_entity::set_sytost(int x, bool ustanovit){if(ustanovit){sytost = x;}else{sytost += x;}}
+int struct_entity::get_son(){return son;}
+void struct_entity::set_son(int x, bool ustanovit){if(ustanovit){son = x;}else{son += x;}}
+
+void struct_entity::update_sytost_son(){
+if(spit == false){--sytost; --son;}
+else if(spit == true && son >= kak_chasto_spat){spit = false;}
+else if(spit == true){son += 2;}
+
+if(son <= 0){spit = true;}
+if(sytost <= 0){mertv = true;}
+}
+int struct_entity::get_kak_chasto_spat(){return kak_chasto_spat;}
+void struct_entity::set_kak_chasto_spat(int x){kak_chasto_spat = x;}
+int struct_entity::get_spit(){return spit;}
+void struct_entity::set_spit(bool x){spit = x;}
+bool struct_entity::get_mertv(){return mertv;}
+std::vector<struct_xyzw>& struct_entity::get_set_marshrut(){return marshrut;}
+int struct_entity::get_counter(){return counter;}
+void struct_entity::set_counter(int x,bool ustanovit){if(ustanovit){counter = x;}else{counter += x;}}
+long long struct_entity::get_target_key(){return target_key;}
+void struct_entity::set_target_key(long long x){target_key = x;}
+int struct_entity::get_target_index(){return target_index;}
+void struct_entity::set_target_index(int x){target_index = x;}

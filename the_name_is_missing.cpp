@@ -8,7 +8,8 @@ game_state state;
 start();
 while(state.get_phase() != phase_state::game_over){
 
-update(state);
+if(state.get_phase() != phase_state::propustit){update(state);}
+else{state.set_phase(phase_state::standart);}
 ui(state);
 }
 return 0;

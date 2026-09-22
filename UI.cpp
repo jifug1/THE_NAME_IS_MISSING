@@ -35,6 +35,7 @@ state.get_set_wasd().set_y(state.get_igrok_y(),1);
 state.get_set_wasd().set_z(state.get_igrok_z(),1);
 state.get_set_wasd().set_w(state.get_igrok_w(),1);
 state.set_wasd_timer(20);
+state.set_phase(phase_state::propustit);
 }
 else if(user_input == "exit"){state.set_phase(phase_state::game_over); return;}
 }
