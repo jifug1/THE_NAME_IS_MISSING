@@ -29,7 +29,7 @@ vec[index].get_set_xyzw().get_z() == z &&
 vec[index].get_set_xyzw().get_w() == w
 ){
 vec.erase(vec.begin()+index);
-update_index_for_cell(state,key,x,y);
+update_index_for_cell(state,key,x,y,id);
 break;
 }
 }
@@ -48,7 +48,7 @@ int old_y = state.item[old_key][old_index].get_set_xyzw().get_y();
 
 struct_item entity_copy = std::move(state.item[old_key][old_index]);
 state.item[old_key].erase(state.item[old_key].begin() + old_index);
-update_index_for_cell(state,old_key,old_x,old_y);
+update_index_for_cell(state,old_key,old_x,old_y,id);
 
 if (state.item[old_key].empty()){
 state.item.erase(old_key);
@@ -153,8 +153,6 @@ void nayti_tsel_po_id(game_state& state,struct_item& e, long long& key_2, int& i
 
     int ex = e.get_set_xyzw().get_x();
     int ey = e.get_set_xyzw().get_y();
-    int ez = e.get_set_xyzw().get_z();
-    int ew = e.get_set_xyzw().get_w();
     int target_id = e.get_set_entity().get_id_tseli();
 
     int best_dist = INF;
@@ -164,16 +162,20 @@ void nayti_tsel_po_id(game_state& state,struct_item& e, long long& key_2, int& i
     for(int dcx = -1; dcx <= 1; ++dcx){
     for(int dcy = -1; dcy <= 1; ++dcy){
         long long ckey = make_ckey(ccx + dcx, ccy + dcy);
-        auto ch_it = state.index_by_chunk.find(ckey);
-        if(ch_it == state.index_by_chunk.end()) {continue;}
 
-        for(long long k : ch_it->second){
+        auto c_it = state.index_by_chunk.find(ckey);
+        if(c_it == state.index_by_chunk.end()) { continue; }
+
+        auto id_it = c_it->second.find(target_id);
+        if(id_it == c_it->second.end()) { continue; }
+
+        for(long long k : id_it->second){
             auto it = state.item.find(k);
-            if(it == state.item.end()) {continue;}
-            for(int i = 0; i < it->second.size(); ++i){
-                if(it->second[i].get_set_object().id != target_id) {continue;}
+            if(it == state.item.end()) { continue; }
+            for(int i = 0; i < (int)it->second.size(); ++i){
+                if(it->second[i].get_set_object().id != target_id) { continue; }
                 int d = heuristic(e.get_set_xyzw(), it->second[i].get_set_xyzw());
-                if(d < best_dist){ best_dist = d; key_2 = k; i_2 = i;}
+                if(d < best_dist){ best_dist = d; key_2 = k; i_2 = i; }
             }
         }
     }}
@@ -194,14 +196,15 @@ auto& vec = it->second;
 for(int i = vec.size() - 1; i >= 0; --i){
 struct_item& e = vec[i];
 if(e.get_chto_eto() == struct_chto_eto::entity){
-e.get_set_entity().update_sytost_son();
+e.get_set_entity().update_sytost_bodrost();
 if(e.get_set_entity().get_spit() == true){continue;}
 
 if(e.get_set_entity().get_mertv() == true){
     int ex_ = e.get_set_xyzw().get_x();
     int ey_ = e.get_set_xyzw().get_y();
+    int id = e.get_set_object().id;
     vec.erase(it->second.begin()+i);
-update_index_for_cell(state,key,ex_,ey_);
+update_index_for_cell(state,key,ex_,ey_,id);
 if(vec.empty()){
     state.item.erase(key); 
     state.entity_keys.erase(state.entity_keys.begin()+index); 
@@ -218,7 +221,7 @@ if(e.get_set_entity().get_counter() > 0){e.get_set_entity().set_counter(-1,false
     bool target_valid = false;
     if(key_2 > -1){
     auto t_it = state.item.find(key_2);
-    if(t_it != state.item.end() && i_2 < (int)t_it->second.size()){
+    if(t_it != state.item.end() && i_2 >= 0 && i_2 < (int)t_it->second.size()){
     if(t_it->second[i_2].get_set_object().id == e.get_set_entity().get_id_tseli() 
     ){
     target_valid = true;

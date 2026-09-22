@@ -13,8 +13,8 @@ void generate_chunk(game_state& state, int cx, int cy){
     long long ckey = make_ckey(chunk_of(cx),chunk_of(cy));
     auto it = state.loaded_chunks.find(ckey);
     if(it != state.loaded_chunks.end()){return;}
-for(int w = -1; w <= 1; ++w){
-for(int z = -1; z <= 1; ++z){
+for(int w = MIN_W; w <= MAX_W; ++w){
+for(int z = MIN_Z; z <= MAX_Z; ++z){
     for(int x = cx; x < cx + chunk_size; ++x){
     for(int y = cy; y < cy + chunk_size; ++y){
     int sluchaino = random_(chislo);
@@ -36,8 +36,8 @@ for(int z = -1; z <= 1; ++z){
 }
 }
 for(int skolko_raz_povtorit = 5; skolko_raz_povtorit > 0; --skolko_raz_povtorit){
-for(int w = -1; w <= 1; ++w){
-for(int z = -1; z <= 1; ++z){
+for(int w = MIN_W; w <= MAX_W; ++w){
+for(int z = MIN_Z; z <= MAX_Z; ++z){
 for(int x = cx; x < cx + chunk_size; ++x){
 for(int y = cy; y < cy + chunk_size; ++y){
 
@@ -81,18 +81,18 @@ struct_item stena;
 }
 }}}}}
 
-/*
-for(int w = -1; w <= 1; ++w){
-for(int z = -1; z <= 1; ++z){
+
+for(int w = MIN_W; w <= MAX_W; ++w){
+for(int z = MIN_Z; z <= MAX_Z; ++z){
 for(int x = cx; x < cx + chunk_size; ++x){
 for(int y = cy; y < cy + chunk_size; ++y){
     index_cell(state, make_key(x,y,z,w));
-}}}}*/
+}}}}
 
 int skolko_nado = nuzhno_travy_v_chunke;
 while(skolko_nado > 0){
-for(int w = -1; w <= 1; ++w){
-for(int z = -1; z <= 1; ++z){
+for(int w = MIN_W; w <= MAX_W; ++w){
+for(int z = MIN_Z; z <= MAX_Z; ++z){
 for(int x = cx; x < cx + chunk_size; ++x){
 for(int y = cy; y < cy + chunk_size; ++y){
 long long key = make_key(x,y,z,w);
@@ -117,8 +117,8 @@ index_cell(state,key);
 skolko_nado = X_v_chunke;
 while(skolko_nado > 0){
 
-for(int w = -1; w <= 1; ++w){
-for(int z = -1; z <= 1; ++z){
+for(int w = MIN_W; w <= MAX_W; ++w){
+for(int z = MIN_Z; z <= MAX_Z; ++z){
 for(int x = cx; x < cx + chunk_size; ++x){
 for(int y = cy; y < cy + chunk_size; ++y){
 long long key = make_key(x,y,z,w);
@@ -139,7 +139,7 @@ X.get_set_object().textura = 'X';
 X.get_set_object().id = 2;
 X.get_set_entity().set_kak_chasto_spat(sluchaino);
 X.get_set_entity().set_id_tseli(1);
-X.get_set_entity().set_son(sluchaino);
+X.get_set_entity().set_bodrost(sluchaino);
 X.get_set_entity().set_spit(0);
 X.get_set_entity().set_sytost(20);
 state.item[key].push_back(X);

@@ -67,6 +67,8 @@ if(state.get_phase() == phase_state::game_over){return;}
         int y_maloe = -100;
         int y_bolshoe = -60;
         ne_povtoryaisya(state,x_maloe,x_bolshoe,y_maloe,y_bolshoe);
+int w = MAX_W;
+long long key_2 = make_key(state.get_igrok_x(), state.get_igrok_y(), state.get_igrok_z(), state.get_igrok_w());
 for(int x = x_maloe; x < x_bolshoe; ++x){
 for(int y = y_maloe; y < y_bolshoe; ++y){
 
@@ -79,7 +81,7 @@ std::cout << state.item[key][0].get_set_object().textura;
 else{std::cout << ".";}
 }
 }
-long long key_2 = make_key(state.get_igrok_x(), state.get_igrok_y(), state.get_igrok_z(), state.get_igrok_w());
+/*
 if(x == x_bolshoe - 3){
     std::cout << " ";
     long long key = make_key(state.get_igrok_x(),state.get_igrok_y(),1,1);
@@ -106,7 +108,17 @@ if(x == x_bolshoe - 3){
     D4(state, key,key_2);
     key = make_key(state.get_igrok_x(),state.get_igrok_y(),-1,-1);
     D4(state, key,key_2);
+    }*/
+   if(x >= x_bolshoe - (std::abs(MIN_W) + MAX_W + 1)){
+    if(w >= MIN_W){
+    std::cout << " ";
+    for(int z = MAX_Z; z >= MIN_Z; --z){
+    long long key = make_key(state.get_igrok_x(),state.get_igrok_y(),z,w);
+    D4(state,key,key_2);
     }
+    --w;
+    }
+   }
 std::cout << "\n";
 }
 vvod(state);

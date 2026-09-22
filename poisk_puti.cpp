@@ -72,8 +72,8 @@ int ny = cy + dy[i];
 int nz = cz + dz[i];
 int nw = cw + dw[i];
 
-if (nz < -1 || nz > 1) {continue;}
-if (nw < -1 || nw > 1) {continue;}
+if (nz < MIN_Z || nz > MAX_Z) {continue;}
+if (nw < MIN_W || nw > MAX_W) {continue;}
 
 long long nkey = make_key(nx, ny, nz, nw);
 

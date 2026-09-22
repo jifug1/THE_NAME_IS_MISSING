@@ -1,16 +1,10 @@
 #include "struct.h"
-constexpr int chunk_size = 40;
-constexpr int nuzhno_travy_v_chunke = 1440;
-constexpr int X_v_chunke = 10;
-constexpr int iterations = 1000;
-constexpr int INF = 1'000'000;
-
 long long make_key(int x, int y, int z, int w){
 long long X = x + 10000;
 long long Y = y + 10000;
 long long Z = z + 1;
 long long W = w + 1;
-return (((X * 20001) + Y) * 3 + Z) * 3 + W;
+return (((X * 20001) + Y) * (std::abs(MIN_Z) + MAX_Z + 1) + Z) * (std::abs(MIN_W) + MAX_W + 1) + W;
 }
 int chunk_of(int position){
 return (position >= 0) ? position / chunk_size :
@@ -48,11 +42,11 @@ void game_state::set_igrok_y(int x, bool ustanovit){
     else if(x <= 1 && x >= -1 && proverka(*this, igrok_x,igrok_y + x,igrok_z,igrok_w)){igrok_y += x;}
 }void game_state::set_igrok_z(int x, bool ustanovit){
     if(ustanovit == 1 && proverka(*this,igrok_x,igrok_y,x,igrok_w)){igrok_z = x;}
-    else if(x <= 1 && x >= -1 && x + igrok_z >= -1 && x + igrok_z <= 1 && proverka(*this, igrok_x,igrok_y,igrok_z + x,igrok_w)){igrok_z += x;}
+    else if(x <= 1 && x >= -1 && x + igrok_z >= MIN_Z && x + igrok_z <= MAX_Z && proverka(*this, igrok_x,igrok_y,igrok_z + x,igrok_w)){igrok_z += x;}
 }
 void game_state::set_igrok_w(int x, bool ustanovit){
     if(ustanovit == 1 && proverka(*this,igrok_x,igrok_y,igrok_z,x)){igrok_w = x;}
-    else if(x <= 1 && x >= -1 && x + igrok_w >= -1 && x + igrok_w <= 1 && proverka(*this, igrok_x,igrok_y,igrok_z,igrok_w + x)){igrok_w += x;}
+    else if(x <= 1 && x >= -1 && x + igrok_w >= MIN_W && x + igrok_w <= MAX_W && proverka(*this, igrok_x,igrok_y,igrok_z,igrok_w + x)){igrok_w += x;}
 }
 struct_chto_eto struct_item::get_chto_eto(){return chto_eto;}
 void struct_item::set_chto_eto(struct_chto_eto x){chto_eto = x;}
@@ -102,15 +96,15 @@ int struct_entity::get_id_tseli(){return id_tseli;}
 void struct_entity::set_id_tseli(int x){id_tseli = x;}
 int struct_entity::get_sytost(){return sytost;}
 void struct_entity::set_sytost(int x, bool ustanovit){if(ustanovit){sytost = x;}else{sytost += x;}}
-int struct_entity::get_son(){return son;}
-void struct_entity::set_son(int x, bool ustanovit){if(ustanovit){son = x;}else{son += x;}}
+int struct_entity::get_bodrost(){return bodrost;}
+void struct_entity::set_bodrost(int x, bool ustanovit){if(ustanovit){bodrost = x;}else{bodrost += x;}}
 
-void struct_entity::update_sytost_son(){
-if(spit == false){--sytost; --son;}
-else if(spit == true && son >= kak_chasto_spat){spit = false;}
-else if(spit == true){son += 2;}
+void struct_entity::update_sytost_bodrost(){
+if(spit == false){--sytost; --bodrost;}
+else if(spit == true && bodrost >= kak_chasto_spat){spit = false;}
+else if(spit == true){bodrost += 2;}
 
-if(son <= 0){spit = true;}
+if(bodrost <= 0){spit = true;}
 if(sytost <= 0){mertv = true;}
 }
 int struct_entity::get_kak_chasto_spat(){return kak_chasto_spat;}
