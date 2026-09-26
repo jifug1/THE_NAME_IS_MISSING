@@ -197,6 +197,7 @@ for(int i = vec.size() - 1; i >= 0; --i){
 struct_item& e = vec[i];
 if(e.get_chto_eto() == struct_chto_eto::entity){
 e.get_set_entity().update_sytost_bodrost();
+e.update_sytost_obj_sytost();
 if(e.get_set_entity().get_spit() == true){continue;}
 
 if(e.get_set_entity().get_mertv() == true){

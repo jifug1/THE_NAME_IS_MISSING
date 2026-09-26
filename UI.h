@@ -4,5 +4,6 @@
 
 void ui(game_state& state);
 void start();
+void end();
 
 #endif

@@ -12,5 +12,6 @@ if(state.get_phase() != phase_state::propustit){update(state);}
 else{state.set_phase(phase_state::standart);}
 ui(state);
 }
+end();
 return 0;
 }

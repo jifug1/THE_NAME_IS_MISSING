@@ -11,7 +11,8 @@ if(key == key_2){std::cout << "2";}
 else if(state.item.count(key) > 0){std::cout << state.item[key][0].get_set_object().textura;}
 else{std::cout << ".";}
 }
-void start(){std::cout << "\n the name is missing\n w a s d   r f t g   exit\n";}
+void start(){std::cout << "\n the_name_is_missing\n w a s d   r f t g   exit\n";}
+void end(){std::cout << "\n the_name_is_missing\n return 0;\n";}
 void vvod(game_state& state){
 std::string user_input = user_string();
 if(user_input == "w"){state.set_igrok_x(-1);}
@@ -81,34 +82,6 @@ std::cout << state.item[key][0].get_set_object().textura;
 else{std::cout << ".";}
 }
 }
-/*
-if(x == x_bolshoe - 3){
-    std::cout << " ";
-    long long key = make_key(state.get_igrok_x(),state.get_igrok_y(),1,1);
-    D4(state,key,key_2);
-    key = make_key(state.get_igrok_x(),state.get_igrok_y(),0,1);
-    D4(state, key,key_2);
-    key = make_key(state.get_igrok_x(),state.get_igrok_y(),-1,1);
-    D4(state, key,key_2);
-    }
-    else if(x == x_bolshoe - 2){
-    std::cout << " ";
-    long long key = make_key(state.get_igrok_x(),state.get_igrok_y(),1,0);
-    D4(state,key,key_2);
-    key = make_key(state.get_igrok_x(),state.get_igrok_y(),0,0);
-    D4(state, key,key_2);
-    key = make_key(state.get_igrok_x(),state.get_igrok_y(),-1,0);
-    D4(state, key,key_2);
-    }
-    else if(x == x_bolshoe - 1){
-    std::cout << " ";
-    long long key = make_key(state.get_igrok_x(),state.get_igrok_y(),1,-1);
-    D4(state,key,key_2);
-    key = make_key(state.get_igrok_x(),state.get_igrok_y(),0,-1);
-    D4(state, key,key_2);
-    key = make_key(state.get_igrok_x(),state.get_igrok_y(),-1,-1);
-    D4(state, key,key_2);
-    }*/
    if(x >= x_bolshoe - (std::abs(MIN_W) + MAX_W + 1)){
     if(w >= MIN_W){
     std::cout << " ";

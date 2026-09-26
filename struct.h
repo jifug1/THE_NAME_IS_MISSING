@@ -4,16 +4,18 @@
 #include <string>
 #include <unordered_map>
 #include <unordered_set>
+#include <random>
 struct game_state;
 constexpr int chunk_size = 40;
-constexpr int nuzhno_travy_v_chunke = 1440;
+constexpr int W_v_chunke = 1440;
 constexpr int X_v_chunke = 30;
 constexpr int iterations = 1000;
 constexpr int INF = 1'000'000;
-constexpr int MIN_Z = -1;
+constexpr int MIN_Z = -2;
 constexpr int MAX_Z = 2;
-constexpr int MIN_W = -1;
+constexpr int MIN_W = -2;
 constexpr int MAX_W = 2;
+constexpr int SPAWN_CHANCE_E = 45;
 long long make_key(int x, int y, int z, int w);
 long long make_ckey(int x,int y);
 int chunk_of(int position);
@@ -104,6 +106,7 @@ void set_chto_eto(struct_chto_eto x);
 struct_xyzw& get_set_xyzw();
 struct_object& get_set_object();
 struct_entity& get_set_entity();
+void update_sytost_obj_sytost();
 };
 
 struct game_state{
@@ -119,7 +122,6 @@ public:
 std::unordered_map<long long, std::vector<struct_item>> item;
 std::vector<long long> entity_keys;
 std::unordered_set<long long> loaded_chunks;
-//std::unordered_map<int, std::unordered_set<long long>> index_by_id;
 std::unordered_map<long long, std::unordered_map<int, std::unordered_set<long long>>> index_by_chunk;
 int get_igrok_x();
 int get_igrok_y();

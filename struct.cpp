@@ -2,9 +2,9 @@
 long long make_key(int x, int y, int z, int w){
 long long X = x + 10000;
 long long Y = y + 10000;
-long long Z = z + 1;
-long long W = w + 1;
-return (((X * 20001) + Y) * (std::abs(MIN_Z) + MAX_Z + 1) + Z) * (std::abs(MIN_W) + MAX_W + 1) + W;
+long long Z = z - MIN_Z;
+long long W = w - MIN_W;
+return (((X * 20001) + Y) * (MAX_Z - MIN_Z + 1) + Z) * (MAX_W - MIN_W + 1) + W;
 }
 int chunk_of(int position){
 return (position >= 0) ? position / chunk_size :
@@ -107,6 +107,10 @@ else if(spit == true){bodrost += 2;}
 if(bodrost <= 0){spit = true;}
 if(sytost <= 0){mertv = true;}
 }
+void struct_item::update_sytost_obj_sytost(){
+get_set_object().sytost = get_set_entity().get_sytost();
+}
+
 int struct_entity::get_kak_chasto_spat(){return kak_chasto_spat;}
 void struct_entity::set_kak_chasto_spat(int x){kak_chasto_spat = x;}
 int struct_entity::get_spit(){return spit;}
