@@ -5,10 +5,13 @@
 #include <unordered_map>
 #include <unordered_set>
 #include <random>
+#include <chrono>
 struct game_state;
+
+extern std::mt19937 chislo;
+extern std::uniform_int_distribution<int> local_kak_chasto_Q;
+
 constexpr int chunk_size = 40;
-constexpr int W_v_chunke = 1440;
-constexpr int X_v_chunke = 30;
 constexpr int iterations = 1000;
 constexpr int INF = 1'000'000;
 constexpr int MIN_Z = -2;
@@ -20,6 +23,7 @@ long long make_key(int x, int y, int z, int w);
 long long make_ckey(int x,int y);
 int chunk_of(int position);
 
+void skushat_W(game_state& state, long long key);
 enum struct phase_state{
 standart,
 game_over,
@@ -115,6 +119,10 @@ int igrok_x = 0;
 int igrok_y = 0;
 int igrok_z = 0;
 int igrok_w = 0;
+int W = 20;
+int kak_chasto_Q = local_kak_chasto_Q(chislo);
+int Q = local_kak_chasto_Q(chislo);
+bool seychas_Q = 0;
 phase_state phase = phase_state::standart;
 struct_xyzw wasd;
 int wasd_timer = -1;
@@ -139,6 +147,12 @@ struct_xyzw& get_set_wasd();
 int get_wasd_timer() const;
 void set_wasd_timer(int x);
 void update_teleport();
+void update_W_Q();
+
+int get_W();
+void set_W(int x, bool ustanovit = 0);
+int get_Q();
+int get_seychas_Q();
 };
 
 bool proverka(game_state& state, const int x, const int y, const int z, const int w);

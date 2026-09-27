@@ -263,5 +263,6 @@ update_eat(state, e.key,e.x,e.y,e.z,e.w,e.id);
 void update(game_state& state){
 chunk_proverka(state);
 update_entity(state);
+state.update_W_Q();
 state.update_teleport();
 }

@@ -5,9 +5,10 @@
 #include <chrono>
 
 namespace{
-std::mt19937 chislo(std::chrono::steady_clock::now().time_since_epoch().count());
 std::uniform_int_distribution<int> random_(1,100);
 std::uniform_int_distribution<int> local_bodrost(30,80);
+std::uniform_int_distribution<int> local_W_v_chunke(160,4000);
+std::uniform_int_distribution<int> local_X_v_chunke(1,40);
 }
 
 void generate_chunk(game_state& state, int cx, int cy){
@@ -107,7 +108,7 @@ obj.set_w(w,true);
 svobodnye.push_back(obj);}
 }}}}
 
-int skolko_nado = W_v_chunke;
+int skolko_nado = local_W_v_chunke(chislo);
 while(svobodnye.size() > 0 && skolko_nado > 0){
 std::uniform_int_distribution<int> local(0, svobodnye.size() - 1);
 int index = local(chislo);
@@ -129,7 +130,7 @@ svobodnye.pop_back();
 --skolko_nado;
 }
 
-skolko_nado = X_v_chunke;
+skolko_nado = local_X_v_chunke(chislo);
 while(svobodnye.size() > 0 && skolko_nado > 0){
 std::uniform_int_distribution<int> local(0, svobodnye.size() - 1);
 int index = local(chislo);

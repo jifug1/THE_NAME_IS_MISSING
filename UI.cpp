@@ -1,4 +1,5 @@
 #include "UI.h"
+#include "struct.h"
 #include <iostream>
 #include <string>
 std::string user_string(){
@@ -11,10 +12,12 @@ if(key == key_2){std::cout << "2";}
 else if(state.item.count(key) > 0){std::cout << state.item[key][0].get_set_object().textura;}
 else{std::cout << ".";}
 }
-void start(){std::cout << "\n the_name_is_missing\n w a s d   r f t g   exit\n";}
+void start(){std::cout << "\n the_name_is_missing\n w a s d r f t g e exit\n";}
 void end(){std::cout << "\n the_name_is_missing\n return 0;\n";}
 void vvod(game_state& state){
 std::string user_input = user_string();
+bool kushat = 0;
+if(!user_input.empty() && user_input.back() == 'e'){kushat = true; user_input.pop_back();}
 if(user_input == "w"){state.set_igrok_x(-1);}
 else if(user_input == "s"){state.set_igrok_x(1);}
 else if(user_input == "a"){state.set_igrok_y(-1);}
@@ -39,6 +42,11 @@ state.set_wasd_timer(20);
 state.set_phase(phase_state::propustit);
 }
 else if(user_input == "exit"){state.set_phase(phase_state::game_over); return;}
+else{return;}
+if(!user_input.empty() && user_input.front() != 'e' && kushat){
+long long key = make_key(state.get_igrok_x(),state.get_igrok_y(),state.get_igrok_z(),state.get_igrok_w());
+skushat_W(state, key);
+}
 }
 void ne_povtoryaisya(game_state& state, int& x_maloe, int& x_bolshoe,
 int& y_maloe, int& y_bolshoe
@@ -70,6 +78,7 @@ if(state.get_phase() == phase_state::game_over){return;}
         ne_povtoryaisya(state,x_maloe,x_bolshoe,y_maloe,y_bolshoe);
 int w = MAX_W;
 long long key_2 = make_key(state.get_igrok_x(), state.get_igrok_y(), state.get_igrok_z(), state.get_igrok_w());
+std::cout << "\n W: " << state.get_W() << " Q: " << state.get_Q() << "\n";
 for(int x = x_maloe; x < x_bolshoe; ++x){
 for(int y = y_maloe; y < y_bolshoe; ++y){
 
@@ -82,7 +91,7 @@ std::cout << state.item[key][0].get_set_object().textura;
 else{std::cout << ".";}
 }
 }
-   if(x >= x_bolshoe - (std::abs(MIN_W) + MAX_W + 1)){
+   if(x >= x_bolshoe - (MAX_W - MIN_W + 1)){
     if(w >= MIN_W){
     std::cout << " ";
     for(int z = MAX_Z; z >= MIN_Z; --z){
@@ -94,5 +103,5 @@ else{std::cout << ".";}
    }
 std::cout << "\n";
 }
-vvod(state);
+if(state.get_seychas_Q() == 0){vvod(state);}
 }
