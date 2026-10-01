@@ -2,6 +2,7 @@
 #include "generation.h"
 #include "poisk_puti.h"
 #include "update_index_by_id.h"
+#include "vidimost.h"
 #include <algorithm>
 
 struct move_task{
@@ -19,7 +20,6 @@ void update_eat(game_state& state, long long key, int x, int y, int z, int w, in
 auto it = state.item.find(key);
 if(it == state.item.end()){return;}
 auto& vec = it->second;
-
 
 for(int index = vec.size() - 1; index >= 0; --index){
 if(vec[index].get_set_object().id == id &&
@@ -263,6 +263,7 @@ update_eat(state, e.key,e.x,e.y,e.z,e.w,e.id);
 void update(game_state& state){
 chunk_proverka(state);
 update_entity(state);
-state.update_W_Q();
 state.update_teleport();
+state.update_teleport_zw();
+pereschetat_vidimost(state);
 }

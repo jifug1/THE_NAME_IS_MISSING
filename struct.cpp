@@ -1,7 +1,7 @@
 #include "struct.h"
 #include "update_index_by_id.h"
 std::mt19937 chislo(std::chrono::steady_clock::now().time_since_epoch().count());
-std::uniform_int_distribution<int> local_kak_chasto_Q(30,80);
+std::uniform_int_distribution<int> local_kak_chasto_spat(30,80);
 long long make_key(int x, int y, int z, int w){
 long long X = x + 10000;
 long long Y = y + 10000;
@@ -30,27 +30,6 @@ return false;
 }
 return true;
 }
-
-void skushat_W(game_state& state, long long key){
-auto it = state.item.find(key);
-if(it == state.item.end()){ return; }
-auto& vec = it->second;
-
-for(int i = vec.size() - 1; i >= 0; --i){
-if(vec[i].get_chto_eto() != struct_chto_eto::object){ continue; }       
-if(vec[i].get_set_object().sytost <= 0){ continue; }
-
-int x = vec[i].get_set_xyzw().get_x();
-int y = vec[i].get_set_xyzw().get_y();
-int id = vec[i].get_set_object().id;
-int sytost = vec[i].get_set_object().sytost;
-
-state.set_W(sytost, false);
-vec.erase(vec.begin() + i);
-update_index_for_cell(state, key, x, y, id);
-if(vec.empty()){
-state.item.erase(it);
-}}}
 
 int game_state::get_igrok_x(){return igrok_x;}
 int game_state::get_igrok_y(){return igrok_y;}
@@ -110,11 +89,19 @@ void game_state::update_teleport(){
 if(wasd_timer == 0){
 igrok_x = wasd.get_x();
 igrok_y = wasd.get_y();
-igrok_z = wasd.get_z();
-igrok_w = wasd.get_w();
 wasd_timer = -1; return;
 }
 if(wasd_timer > -1){--wasd_timer;}
+}
+int game_state::get_wasd_timer_zw() const{return wasd_timer_zw;}
+void game_state::set_wasd_timer_zw(int x){wasd_timer_zw = x;}
+void game_state::update_teleport_zw(){
+if(wasd_timer_zw == 0){
+igrok_z = wasd.get_z();
+igrok_w = wasd.get_w();
+wasd_timer_zw = -1; return;
+}
+if(wasd_timer_zw > -1){--wasd_timer_zw;}
 }
 int struct_entity::get_id_tseli(){return id_tseli;}
 void struct_entity::set_id_tseli(int x){id_tseli = x;}
@@ -131,21 +118,10 @@ else if(spit == true){bodrost += 2;}
 if(bodrost <= 0){spit = true;}
 if(sytost <= 0){mertv = true;}
 }
-void game_state::update_W_Q(){
-if(seychas_Q == false){--W; --Q;}
-else if(seychas_Q == true && Q >= kak_chasto_Q){seychas_Q = false;}
-else if(seychas_Q == true){Q += 2;}
 
-if(Q <= 0){seychas_Q = true;}
-if(W <= 0){set_phase(phase_state::game_over);}
-}
 void struct_item::update_sytost_obj_sytost(){
 get_set_object().sytost = get_set_entity().get_sytost();
 }
-int game_state::get_W(){return W;}
-void game_state::set_W(int x, bool ustanovit){if(ustanovit){W = x;}else{W += x;}}
-int game_state::get_Q(){return Q;}
-int game_state::get_seychas_Q(){return seychas_Q;}
 
 int struct_entity::get_kak_chasto_spat(){return kak_chasto_spat;}
 void struct_entity::set_kak_chasto_spat(int x){kak_chasto_spat = x;}

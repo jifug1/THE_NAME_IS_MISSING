@@ -9,7 +9,7 @@
 struct game_state;
 
 extern std::mt19937 chislo;
-extern std::uniform_int_distribution<int> local_kak_chasto_Q;
+extern std::uniform_int_distribution<int> local_kak_chasto_spat;
 
 constexpr int chunk_size = 40;
 constexpr int iterations = 1000;
@@ -23,7 +23,6 @@ long long make_key(int x, int y, int z, int w);
 long long make_ckey(int x,int y);
 int chunk_of(int position);
 
-void skushat_W(game_state& state, long long key);
 enum struct phase_state{
 standart,
 game_over,
@@ -38,6 +37,7 @@ bool igrok_mozhet_proyti = true;
 char textura = ' ';
 int id = -1;
 int sytost = 0;
+bool blokiruet_zrenie = false;
 };
 struct struct_xyzw{
 private:
@@ -119,18 +119,16 @@ int igrok_x = 0;
 int igrok_y = 0;
 int igrok_z = 0;
 int igrok_w = 0;
-int W = 20;
-int kak_chasto_Q = local_kak_chasto_Q(chislo);
-int Q = local_kak_chasto_Q(chislo);
-bool seychas_Q = 0;
 phase_state phase = phase_state::standart;
 struct_xyzw wasd;
 int wasd_timer = -1;
+int wasd_timer_zw = -1;
 public:
 std::unordered_map<long long, std::vector<struct_item>> item;
 std::vector<long long> entity_keys;
 std::unordered_set<long long> loaded_chunks;
 std::unordered_map<long long, std::unordered_map<int, std::unordered_set<long long>>> index_by_chunk;
+std::unordered_set<long long> vidimye_kletki;
 int get_igrok_x();
 int get_igrok_y();
 int get_igrok_z();
@@ -147,12 +145,9 @@ struct_xyzw& get_set_wasd();
 int get_wasd_timer() const;
 void set_wasd_timer(int x);
 void update_teleport();
-void update_W_Q();
-
-int get_W();
-void set_W(int x, bool ustanovit = 0);
-int get_Q();
-int get_seychas_Q();
+int get_wasd_timer_zw() const;
+void set_wasd_timer_zw(int x);
+void update_teleport_zw();
 };
 
 bool proverka(game_state& state, const int x, const int y, const int z, const int w);

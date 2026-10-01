@@ -6,9 +6,6 @@
 
 namespace{
 std::uniform_int_distribution<int> random_(1,100);
-std::uniform_int_distribution<int> local_bodrost(30,80);
-std::uniform_int_distribution<int> local_W_v_chunke(160,4000);
-std::uniform_int_distribution<int> local_X_v_chunke(1,40);
 }
 
 void generate_chunk(game_state& state, int cx, int cy){
@@ -24,17 +21,18 @@ for(int z = MIN_Z; z <= MAX_Z; ++z){
     for(int y = cy; y < cy + chunk_size; ++y){
     int sluchaino = random_(chislo);
     if(sluchaino <= spawn_chance_E){
-    struct_item stena;
-    stena.set_chto_eto(struct_chto_eto::object);
-    stena.get_set_object().igrok_mozhet_proyti = false;
-    stena.get_set_xyzw().set_x(x,true);
-    stena.get_set_xyzw().set_y(y,true);
-    stena.get_set_xyzw().set_z(z,true);
-    stena.get_set_xyzw().set_w(w,true);
-    stena.get_set_object().textura = 'E';
-    stena.get_set_object().id = 0;
+    struct_item E;
+    E.set_chto_eto(struct_chto_eto::object);
+    E.get_set_object().igrok_mozhet_proyti = false;
+    E.get_set_object().blokiruet_zrenie = true;
+    E.get_set_xyzw().set_x(x,true);
+    E.get_set_xyzw().set_y(y,true);
+    E.get_set_xyzw().set_z(z,true);
+    E.get_set_xyzw().set_w(w,true);
+    E.get_set_object().textura = 'E';
+    E.get_set_object().id = 0;
     long long key = make_key(x,y,z,w);
-    state.item[key].push_back(stena);
+    state.item[key].push_back(E);
     }
     }
     }
@@ -74,16 +72,17 @@ if(vec.empty()){state.item.erase(it);}
 }
 else if(ryadom_E > 4){
 if(state.item.count(key) == 0){
-struct_item stena;
-    stena.set_chto_eto(struct_chto_eto::object);
-    stena.get_set_object().igrok_mozhet_proyti = false;
-    stena.get_set_xyzw().set_x(x,true);
-    stena.get_set_xyzw().set_y(y,true);
-    stena.get_set_xyzw().set_z(z,true);
-    stena.get_set_xyzw().set_w(w,true);
-    stena.get_set_object().textura = 'E';
-    stena.get_set_object().id = 0;
-    state.item[key].push_back(stena);
+struct_item E;
+    E.set_chto_eto(struct_chto_eto::object);
+    E.get_set_object().igrok_mozhet_proyti = false;
+    E.get_set_object().blokiruet_zrenie = true;
+    E.get_set_xyzw().set_x(x,true);
+    E.get_set_xyzw().set_y(y,true);
+    E.get_set_xyzw().set_z(z,true);
+    E.get_set_xyzw().set_w(w,true);
+    E.get_set_object().textura = 'E';
+    E.get_set_object().id = 0;
+    state.item[key].push_back(E);
 }
 cells_to_index.insert(key);
 }
@@ -107,58 +106,6 @@ obj.set_z(z,true);
 obj.set_w(w,true);
 svobodnye.push_back(obj);}
 }}}}
-
-int skolko_nado = local_W_v_chunke(chislo);
-while(svobodnye.size() > 0 && skolko_nado > 0){
-std::uniform_int_distribution<int> local(0, svobodnye.size() - 1);
-int index = local(chislo);
-struct_item obj;
-obj.set_chto_eto(struct_chto_eto::object);
-obj.get_set_object().igrok_mozhet_proyti = true;
-obj.get_set_xyzw().set_x(svobodnye[index].get_x(),true);
-obj.get_set_xyzw().set_y(svobodnye[index].get_y(),true);
-obj.get_set_xyzw().set_z(svobodnye[index].get_z(),true);
-obj.get_set_xyzw().set_w(svobodnye[index].get_w(),true);
-obj.get_set_object().textura = 'W';
-obj.get_set_object().id = 1;
-obj.get_set_object().sytost = 5;
-long long key = make_key(svobodnye[index].get_x(),svobodnye[index].get_y(),svobodnye[index].get_z(),svobodnye[index].get_w());
-state.item[key].push_back(obj);
-cells_to_index.insert(key);
-svobodnye[index] = svobodnye.back();
-svobodnye.pop_back();
---skolko_nado;
-}
-
-skolko_nado = local_X_v_chunke(chislo);
-while(svobodnye.size() > 0 && skolko_nado > 0){
-std::uniform_int_distribution<int> local(0, svobodnye.size() - 1);
-int index = local(chislo);
-struct_item obj;
-obj.set_chto_eto(struct_chto_eto::entity);
-obj.get_set_object().igrok_mozhet_proyti = true;
-obj.get_set_xyzw().set_x(svobodnye[index].get_x(),true);
-obj.get_set_xyzw().set_y(svobodnye[index].get_y(),true);
-obj.get_set_xyzw().set_z(svobodnye[index].get_z(),true);
-obj.get_set_xyzw().set_w(svobodnye[index].get_w(),true);
-obj.get_set_object().textura = 'X';
-obj.get_set_object().id = 2;
-obj.get_set_entity().set_id_tseli(1);
-
-int sluchaino = local_bodrost(chislo);
-
-obj.get_set_entity().set_kak_chasto_spat(sluchaino);
-obj.get_set_entity().set_bodrost(sluchaino);
-obj.get_set_entity().set_spit(0);
-obj.get_set_entity().set_sytost(20);
-long long key = make_key(svobodnye[index].get_x(),svobodnye[index].get_y(),svobodnye[index].get_z(),svobodnye[index].get_w());
-state.item[key].push_back(obj);
-state.entity_keys.push_back(key);
-cells_to_index.insert(key);
-svobodnye[index] = svobodnye.back();
-svobodnye.pop_back();
---skolko_nado;
-}
 
 for(long long k : cells_to_index){
 index_cell(state,k);
