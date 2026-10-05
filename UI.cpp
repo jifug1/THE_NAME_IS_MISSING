@@ -12,28 +12,42 @@ if(key == key_2){std::cout << "2";}
 else if(state.item.count(key) > 0){std::cout << state.item[key][0].get_set_object().textura;}
 else{std::cout << ".";}
 }
-void start(){std::cout << "\n THE_NAME_IS_MISSING\n You terminated this program immediately after launching it.\n Type \'exit\' to terminate this program.\n";}
+void start(){std::cout << "\n THE_NAME_IS_MISSING\n You terminated this program immediately after launching it.\n Type \'exit\' to terminate this program.\n";
+std::cin.get();
+}
 void end(){std::cout << "\n return 0;\n";}
+void clear_console(){
+std::cout << "\033[2J\033[H" << std::flush;
+}
 void vvod(game_state& state){
+bool zanovo = false;
+do{
+zanovo = false;
 std::string user_input = user_string();
-if(user_input == "8"){state.set_igrok_x(-1);}
-else if(user_input == "2"){state.set_igrok_x(1);}
-else if(user_input == "4"){state.set_igrok_y(-1);}
-else if(user_input == "6"){state.set_igrok_y(1);}
-else if(user_input == "44"){state.set_igrok_z(1);}
-else if(user_input == "66"){state.set_igrok_z(-1);}
-else if(user_input == "88"){state.set_igrok_w(1);}
-else if(user_input == "22"){state.set_igrok_w(-1);}
-    else if(user_input == "86"){state.set_igrok_x(-1); state.set_igrok_y(1);}
-    else if(user_input == "68"){state.set_igrok_y(1); state.set_igrok_x(-1);}
-    else if(user_input == "84"){state.set_igrok_x(-1); state.set_igrok_y(-1);}
-    else if(user_input == "48"){state.set_igrok_y(-1); state.set_igrok_x(-1);}
-    else if(user_input == "26"){state.set_igrok_x(1); state.set_igrok_y(1);}
-    else if(user_input == "62"){state.set_igrok_y(1); state.set_igrok_x(1);}
-    else if(user_input == "24"){state.set_igrok_x(1); state.set_igrok_y(-1);}
-    else if(user_input == "42"){state.set_igrok_y(-1); state.set_igrok_x(1);}
+if(user_input == "8" || user_input == "k"){state.set_igrok_x(-1);}
+else if(user_input == "2" || user_input == "j"){state.set_igrok_x(1);}
+else if(user_input == "4" || user_input == "h"){state.set_igrok_y(-1);}
+else if(user_input == "6" || user_input == "l"){state.set_igrok_y(1);}
+else if(user_input == "44" || user_input == "hh"){state.set_igrok_z(1);}
+else if(user_input == "66" || user_input == "ll"){state.set_igrok_z(-1);}
+else if(user_input == "88" || user_input == "kk"){state.set_igrok_w(1);}
+else if(user_input == "22" || user_input == "jj"){state.set_igrok_w(-1);}
+else if(user_input == "86" || user_input == "kl"){state.set_igrok_x(-1); state.set_igrok_y(1);}
+else if(user_input == "68" || user_input == "lk"){state.set_igrok_y(1); state.set_igrok_x(-1);}
+else if(user_input == "84" || user_input == "kh"){state.set_igrok_x(-1); state.set_igrok_y(-1);}
+else if(user_input == "48" || user_input == "hk"){state.set_igrok_y(-1); state.set_igrok_x(-1);}
+else if(user_input == "26" || user_input == "jl"){state.set_igrok_x(1); state.set_igrok_y(1);}
+else if(user_input == "62" || user_input == "lj"){state.set_igrok_y(1); state.set_igrok_x(1);}
+else if(user_input == "24" || user_input == "jh"){state.set_igrok_x(1); state.set_igrok_y(-1);}
+else if(user_input == "42" || user_input == "hj"){state.set_igrok_y(-1); state.set_igrok_x(1);}
+else if(user_input == "5" || user_input == ","){return;}
 else if(user_input == "exit"){state.set_phase(phase_state::game_over); return;}
-else{return;}
+else{
+std::cout << "\n Unknown command: \'" << user_input << "\'\n"; 
+state.set_phase(phase_state::propustit);
+zanovo = true;
+}
+}while(zanovo);
 }
 void ne_povtoryaisya(game_state& state, int& x_maloe, int& x_bolshoe,
 int& y_maloe, int& y_bolshoe
@@ -65,6 +79,7 @@ if(state.get_phase() == phase_state::game_over){return;}
         ne_povtoryaisya(state,x_maloe,x_bolshoe,y_maloe,y_bolshoe);
 int w = MAX_W;
 long long key_2 = make_key(state.get_igrok_x(), state.get_igrok_y(), state.get_igrok_z(), state.get_igrok_w());
+clear_console();
 for(int x = x_maloe; x < x_bolshoe; ++x){
 for(int y = y_maloe; y < y_bolshoe; ++y){
 
