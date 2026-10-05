@@ -120,9 +120,6 @@ int igrok_y = 0;
 int igrok_z = 0;
 int igrok_w = 0;
 phase_state phase = phase_state::standart;
-struct_xyzw wasd;
-int wasd_timer = -1;
-int wasd_timer_zw = -1;
 public:
 std::unordered_map<long long, std::vector<struct_item>> item;
 std::vector<long long> entity_keys;
@@ -141,13 +138,6 @@ void set_igrok_w(int x, bool ustanovit = 0);
 
 phase_state get_phase();
 void set_phase(phase_state x);
-struct_xyzw& get_set_wasd();
-int get_wasd_timer() const;
-void set_wasd_timer(int x);
-void update_teleport();
-int get_wasd_timer_zw() const;
-void set_wasd_timer_zw(int x);
-void update_teleport_zw();
 };
 
 bool proverka(game_state& state, const int x, const int y, const int z, const int w);

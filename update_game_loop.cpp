@@ -263,7 +263,5 @@ update_eat(state, e.key,e.x,e.y,e.z,e.w,e.id);
 void update(game_state& state){
 chunk_proverka(state);
 update_entity(state);
-state.update_teleport();
-state.update_teleport_zw();
 pereschetat_vidimost(state);
 }

@@ -80,29 +80,8 @@ else{w += chislo;}
 
 struct_xyzw& struct_item::get_set_xyzw(){return xyzw;}
 struct_object& struct_item::get_set_object(){return object;}
-struct_xyzw& game_state::get_set_wasd(){return wasd;}
-int game_state::get_wasd_timer() const{return wasd_timer;}
-void game_state::set_wasd_timer(int x){wasd_timer = x;}
 struct_xyzw& struct_entity::get_set_mesto_tseli(){return mesto_tseli;}
 struct_entity& struct_item::get_set_entity(){return entity;}
-void game_state::update_teleport(){
-if(wasd_timer == 0){
-igrok_x = wasd.get_x();
-igrok_y = wasd.get_y();
-wasd_timer = -1; return;
-}
-if(wasd_timer > -1){--wasd_timer;}
-}
-int game_state::get_wasd_timer_zw() const{return wasd_timer_zw;}
-void game_state::set_wasd_timer_zw(int x){wasd_timer_zw = x;}
-void game_state::update_teleport_zw(){
-if(wasd_timer_zw == 0){
-igrok_z = wasd.get_z();
-igrok_w = wasd.get_w();
-wasd_timer_zw = -1; return;
-}
-if(wasd_timer_zw > -1){--wasd_timer_zw;}
-}
 int struct_entity::get_id_tseli(){return id_tseli;}
 void struct_entity::set_id_tseli(int x){id_tseli = x;}
 int struct_entity::get_sytost(){return sytost;}

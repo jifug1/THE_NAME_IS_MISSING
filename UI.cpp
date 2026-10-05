@@ -12,40 +12,26 @@ if(key == key_2){std::cout << "2";}
 else if(state.item.count(key) > 0){std::cout << state.item[key][0].get_set_object().textura;}
 else{std::cout << ".";}
 }
-void start(){std::cout << "\n the_name_is_missing\n w a s d W A S D exit\n";}
-void end(){std::cout << "\n the_name_is_missing\n return 0;\n";}
+void start(){std::cout << "\n THE_NAME_IS_MISSING\n You terminated this program immediately after launching it.\n Type \'exit\' to terminate this program.\n";}
+void end(){std::cout << "\n return 0;\n";}
 void vvod(game_state& state){
 std::string user_input = user_string();
-if(user_input == "w"){state.set_igrok_x(-1);}
-else if(user_input == "s"){state.set_igrok_x(1);}
-else if(user_input == "a"){state.set_igrok_y(-1);}
-else if(user_input == "d"){state.set_igrok_y(1);}
-else if(user_input == "A"){state.set_igrok_z(1);}
-else if(user_input == "D"){state.set_igrok_z(-1);}
-else if(user_input == "W"){state.set_igrok_w(1);}
-else if(user_input == "S"){state.set_igrok_w(-1);}
-    else if(user_input == "wd"){state.set_igrok_x(-1); state.set_igrok_y(1);}
-    else if(user_input == "dw"){state.set_igrok_y(1); state.set_igrok_x(-1);}
-    else if(user_input == "wa"){state.set_igrok_x(-1); state.set_igrok_y(-1);}
-    else if(user_input == "aw"){state.set_igrok_y(-1); state.set_igrok_x(-1);}
-    else if(user_input == "sd"){state.set_igrok_x(1); state.set_igrok_y(1);}
-    else if(user_input == "ds"){state.set_igrok_y(1); state.set_igrok_x(1);}
-    else if(user_input == "sa"){state.set_igrok_x(1); state.set_igrok_y(-1);}
-    else if(user_input == "as"){state.set_igrok_y(-1); state.set_igrok_x(1);}
-else if(user_input == "wasd"){state.get_set_wasd().set_x(state.get_igrok_x(),1);
-state.get_set_wasd().set_y(state.get_igrok_y(),1);
-state.get_set_wasd().set_z(state.get_igrok_z(),1);
-state.get_set_wasd().set_w(state.get_igrok_w(),1);
-state.set_wasd_timer(20);
-state.set_phase(phase_state::propustit);
-}
-else if(user_input == "WASD"){state.get_set_wasd().set_x(state.get_igrok_x(),1);
-state.get_set_wasd().set_y(state.get_igrok_y(),1);
-state.get_set_wasd().set_z(state.get_igrok_z(),1);
-state.get_set_wasd().set_w(state.get_igrok_w(),1);
-state.set_wasd_timer_zw(20);
-state.set_phase(phase_state::propustit);
-}
+if(user_input == "8"){state.set_igrok_x(-1);}
+else if(user_input == "2"){state.set_igrok_x(1);}
+else if(user_input == "4"){state.set_igrok_y(-1);}
+else if(user_input == "6"){state.set_igrok_y(1);}
+else if(user_input == "44"){state.set_igrok_z(1);}
+else if(user_input == "66"){state.set_igrok_z(-1);}
+else if(user_input == "88"){state.set_igrok_w(1);}
+else if(user_input == "22"){state.set_igrok_w(-1);}
+    else if(user_input == "86"){state.set_igrok_x(-1); state.set_igrok_y(1);}
+    else if(user_input == "68"){state.set_igrok_y(1); state.set_igrok_x(-1);}
+    else if(user_input == "84"){state.set_igrok_x(-1); state.set_igrok_y(-1);}
+    else if(user_input == "48"){state.set_igrok_y(-1); state.set_igrok_x(-1);}
+    else if(user_input == "26"){state.set_igrok_x(1); state.set_igrok_y(1);}
+    else if(user_input == "62"){state.set_igrok_y(1); state.set_igrok_x(1);}
+    else if(user_input == "24"){state.set_igrok_x(1); state.set_igrok_y(-1);}
+    else if(user_input == "42"){state.set_igrok_y(-1); state.set_igrok_x(1);}
 else if(user_input == "exit"){state.set_phase(phase_state::game_over); return;}
 else{return;}
 }
