@@ -20,6 +20,7 @@ return (X * 501) + Y;
 }
 
 bool proverka(game_state& state, const int x, const int y, const int z, const int w){
+if(!((z >= MIN_Z && z <= MAX_Z) && (w >= MIN_W && w <= MAX_W))){return false;}
 long long key = make_key(x,y,z,w);
 if(state.item.count(key) > 0){
 for(int index = 0; index < state.item[key].size(); ++index){
@@ -31,26 +32,6 @@ return false;
 return true;
 }
 
-int game_state::get_igrok_x(){return igrok_x;}
-int game_state::get_igrok_y(){return igrok_y;}
-int game_state::get_igrok_z(){return igrok_z;}
-int game_state::get_igrok_w(){return igrok_w;}
-
-void game_state::set_igrok_x(int x, bool ustanovit){
-    if(ustanovit == 1 && proverka(*this,x,igrok_y,igrok_z,igrok_w)){igrok_x = x;}
-    else if(x <= 1 && x >= -1 && proverka(*this, igrok_x + x,igrok_y,igrok_z,igrok_w)){igrok_x += x;}
-}
-void game_state::set_igrok_y(int x, bool ustanovit){
-    if(ustanovit == 1 && proverka(*this,igrok_x,x,igrok_z,igrok_w)){igrok_y = x;}
-    else if(x <= 1 && x >= -1 && proverka(*this, igrok_x,igrok_y + x,igrok_z,igrok_w)){igrok_y += x;}
-}void game_state::set_igrok_z(int x, bool ustanovit){
-    if(ustanovit == 1 && proverka(*this,igrok_x,igrok_y,x,igrok_w)){igrok_z = x;}
-    else if(x <= 1 && x >= -1 && x + igrok_z >= MIN_Z && x + igrok_z <= MAX_Z && proverka(*this, igrok_x,igrok_y,igrok_z + x,igrok_w)){igrok_z += x;}
-}
-void game_state::set_igrok_w(int x, bool ustanovit){
-    if(ustanovit == 1 && proverka(*this,igrok_x,igrok_y,igrok_z,x)){igrok_w = x;}
-    else if(x <= 1 && x >= -1 && x + igrok_w >= MIN_W && x + igrok_w <= MAX_W && proverka(*this, igrok_x,igrok_y,igrok_z,igrok_w + x)){igrok_w += x;}
-}
 struct_chto_eto struct_item::get_chto_eto(){return chto_eto;}
 void struct_item::set_chto_eto(struct_chto_eto x){chto_eto = x;}
 

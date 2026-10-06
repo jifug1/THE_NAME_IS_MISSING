@@ -6,7 +6,7 @@ double start, double end, int radius,
 int preobrazovanie_x, int preobrazovanie_y, bool pomenyat_mestami
 ){
 if(depth > radius || start >= end){return;}
-for(int lateral = 0.0; lateral <= depth; ++lateral){
+for(int lateral = 0; lateral <= depth; ++lateral){
 double L = (lateral - 0.5) / (depth + 0.5);
 double R = (lateral + 0.5) / (depth - 0.5);
 if(R < start){continue;}
@@ -44,12 +44,12 @@ if(start >= end){break;}
 scan(state, cx, cy, cz, cw, depth + 1.0, start, end,radius,preobrazovanie_x,preobrazovanie_y,pomenyat_mestami);
 }
 
-void pereschetat_vidimost(game_state& state){
+void pereschetat_vidimost(game_state& state,struct_item& igrok){
 state.vidimye_kletki.clear();
-int px = state.get_igrok_x();
-int py = state.get_igrok_y();
-int pz = state.get_igrok_z();
-int pw = state.get_igrok_w();
+int px = igrok.get_set_xyzw().get_x();
+int py = igrok.get_set_xyzw().get_y();
+int pz = igrok.get_set_xyzw().get_z();
+int pw = igrok.get_set_xyzw().get_w();
 long long pkey = make_key(px,py,pz,pw);
 state.vidimye_kletki.insert(pkey);
 

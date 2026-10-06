@@ -90,9 +90,9 @@ state.entity_keys.push_back(new_key);
 index_cell(state, new_key);
 }
 
-void chunk_proverka(game_state& state){
-int px = state.get_igrok_x();
-int py = state.get_igrok_y();
+void chunk_proverka(game_state& state, struct_item& igrok){
+int px = igrok.get_set_xyzw().get_x();
+int py = igrok.get_set_xyzw().get_y();
 int cx0 = chunk_of(px - (chunk_size * 2));
 int cx1 = chunk_of(px + (chunk_size * 2));
 int cy0 = chunk_of(py - (chunk_size * 2));
@@ -260,8 +260,8 @@ update_eat(state, e.key,e.x,e.y,e.z,e.w,e.id);
 }
 }
 
-void update(game_state& state){
-chunk_proverka(state);
+void update(game_state& state, struct_item& igrok){
+chunk_proverka(state,igrok);
 update_entity(state);
-pereschetat_vidimost(state);
+pereschetat_vidimost(state,igrok);
 }

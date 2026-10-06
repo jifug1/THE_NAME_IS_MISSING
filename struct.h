@@ -115,10 +115,6 @@ void update_sytost_obj_sytost();
 
 struct game_state{
 private:
-int igrok_x = 0;
-int igrok_y = 0;
-int igrok_z = 0;
-int igrok_w = 0;
 phase_state phase = phase_state::standart;
 public:
 std::unordered_map<long long, std::vector<struct_item>> item;
@@ -126,18 +122,9 @@ std::vector<long long> entity_keys;
 std::unordered_set<long long> loaded_chunks;
 std::unordered_map<long long, std::unordered_map<int, std::unordered_set<long long>>> index_by_chunk;
 std::unordered_set<long long> vidimye_kletki;
-int get_igrok_x();
-int get_igrok_y();
-int get_igrok_z();
-int get_igrok_w();
-
-void set_igrok_x(int x, bool ustanovit = 0);
-void set_igrok_y(int x, bool ustanovit = 0);
-void set_igrok_z(int x, bool ustanovit = 0);
-void set_igrok_w(int x, bool ustanovit = 0);
-
 phase_state get_phase();
 void set_phase(phase_state x);
+bool nachalo = true;
 };
 
 bool proverka(game_state& state, const int x, const int y, const int z, const int w);
