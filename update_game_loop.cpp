@@ -259,9 +259,13 @@ for(auto& e : delete_eat){
 update_eat(state, e.key,e.x,e.y,e.z,e.w,e.id);
 }
 }
+void update_pochva(game_state& state){
+
+}
 
 void update(game_state& state, struct_item& igrok){
 chunk_proverka(state,igrok);
+update_pochva(state);
 update_entity(state);
 pereschetat_vidimost(state,igrok);
 }

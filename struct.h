@@ -128,6 +128,7 @@ phase_state phase = phase_state::standart;
 public:
 std::unordered_map<long long, std::vector<struct_item>> item;
 std::vector<long long> entity_keys;
+std::vector<long long> pochva_keys;
 std::unordered_set<long long> loaded_chunks;
 std::unordered_map<long long, std::unordered_map<int, std::unordered_set<long long>>> index_by_chunk;
 std::unordered_set<long long> vidimye_kletki;

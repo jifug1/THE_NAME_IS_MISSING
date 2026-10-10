@@ -125,6 +125,7 @@ obj.get_set_object().set_pochva(true);
 obj.get_set_object().set_resource(3);
 long long key = make_key(svobodnye[index].get_x(),svobodnye[index].get_y(),svobodnye[index].get_z(),svobodnye[index].get_w());
 state.item[key].push_back(obj);
+state.pochva_keys.push_back(key);
 cells_to_index.insert(key);
 svobodnye[index] = svobodnye.back();
 svobodnye.pop_back();
