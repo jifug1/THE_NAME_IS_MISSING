@@ -95,3 +95,8 @@ long long struct_entity::get_target_key(){return target_key;}
 void struct_entity::set_target_key(long long x){target_key = x;}
 int struct_entity::get_target_index(){return target_index;}
 void struct_entity::set_target_index(int x){target_index = x;}
+
+bool struct_object::get_pochva(){return pochva;}
+void struct_object::set_pochva(bool x){pochva = x;}
+int struct_object::get_resource(){return resource;}
+void struct_object::set_resource(int x){resource = x;}

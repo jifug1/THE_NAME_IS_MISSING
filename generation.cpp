@@ -107,6 +107,30 @@ obj.set_w(w,true);
 svobodnye.push_back(obj);}
 }}}}
 
+int skolko_nado = POCHVA_V_CHUNKE;
+while(svobodnye.size() > 0 && skolko_nado > 0){
+std::uniform_int_distribution<int> local(0,svobodnye.size()-1);
+int index = local(chislo);
+struct_item obj;
+obj.set_chto_eto(struct_chto_eto::object);
+obj.get_set_object().igrok_mozhet_proyti = true;
+obj.get_set_object().blokiruet_zrenie = false;
+obj.get_set_xyzw().set_x(svobodnye[index].get_x(),true);
+obj.get_set_xyzw().set_y(svobodnye[index].get_y(),true);
+obj.get_set_xyzw().set_z(svobodnye[index].get_z(),true);
+obj.get_set_xyzw().set_w(svobodnye[index].get_w(),true);
+obj.get_set_object().textura = ',';
+obj.get_set_object().id = 1;
+obj.get_set_object().set_pochva(true);
+obj.get_set_object().set_resource(3);
+long long key = make_key(svobodnye[index].get_x(),svobodnye[index].get_y(),svobodnye[index].get_z(),svobodnye[index].get_w());
+state.item[key].push_back(obj);
+cells_to_index.insert(key);
+svobodnye[index] = svobodnye.back();
+svobodnye.pop_back();
+--skolko_nado;
+}
+
 for(long long k : cells_to_index){
 index_cell(state,k);
 }

@@ -19,6 +19,7 @@ constexpr int MAX_Z = 2;
 constexpr int MIN_W = -2;
 constexpr int MAX_W = 2;
 constexpr int SPAWN_CHANCE_E = 45;
+constexpr int POCHVA_V_CHUNKE = 400;
 long long make_key(int x, int y, int z, int w);
 long long make_ckey(int x,int y);
 int chunk_of(int position);
@@ -33,6 +34,14 @@ object,
 entity,
 };
 struct struct_object{
+private:
+bool pochva = false;
+int resource = 0;
+public:
+bool get_pochva();
+void set_pochva(bool x);
+int get_resource();
+void set_resource(int x);
 bool igrok_mozhet_proyti = true;
 char textura = ' ';
 int id = -1;
@@ -69,7 +78,7 @@ struct_xyzw mesto_tseli;
 std::vector<struct_xyzw> marshrut;
 int id_tseli = -1;
 int sytost = 20;
-int kak_chasto_spat = 40;
+int kak_chasto_spat = local_kak_chasto_spat(chislo);
 int bodrost = kak_chasto_spat;
 bool spit = false;
 bool mertv = false;
