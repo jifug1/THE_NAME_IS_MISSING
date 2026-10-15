@@ -15,6 +15,12 @@ long long key;
 int x,y,z,w;
 int id = -1;
 };
+struct pochva_task{
+long long key;
+int x,y,z,w;
+int id = -1;
+int index = 0;
+};
 
 void update_eat(game_state& state, long long key, int x, int y, int z, int w, int id){
 auto it = state.item.find(key);
@@ -259,8 +265,51 @@ for(auto& e : delete_eat){
 update_eat(state, e.key,e.x,e.y,e.z,e.w,e.id);
 }
 }
-void update_pochva(game_state& state){
 
+void create_na_pochve(game_state& state, int x, int y, int z, int w){
+
+}
+void update_pochva(game_state& state){
+std::vector<pochva_task> delete_pochva;
+if(state.timer_pochva <= 0){
+for(int index = state.pochva_keys.size()-1; index >= 0; --index){
+auto it = state.item.find(state.pochva_keys[index]);
+
+if(it == state.item.end()){continue;}
+auto& vec = it->second;
+for(int i = vec.size()-1; i >= 0; --i){
+if(vec[i].get_set_object().get_pochva() == false){continue;}
+if(vec[i].get_set_object().get_resource() > 0){create_na_pochve(state,
+vec[i].get_set_xyzw().get_x(),
+vec[i].get_set_xyzw().get_y(),
+vec[i].get_set_xyzw().get_z(),
+vec[i].get_set_xyzw().get_w()
+);
+vec[i].get_set_object().set_resource(-1,false);
+}
+else{
+delete_pochva.push_back({state.pochva_keys[index],vec[i].get_set_xyzw().get_x(),
+vec[i].get_set_xyzw().get_y(),
+vec[i].get_set_xyzw().get_z(),
+vec[i].get_set_xyzw().get_w(),vec[i].get_set_object().id,index});
+break;
+}
+}}
+state.timer_pochva = TIMER_POCHVA;
+}
+else{--state.timer_pochva;}
+
+for(int i = delete_pochva.size()-1; i >= 0; --i){
+state.pochva_keys[delete_pochva[i].index] = state.pochva_keys.back();
+state.pochva_keys.pop_back();
+update_eat(state, delete_pochva[i].key,
+delete_pochva[i].x,
+delete_pochva[i].y,
+delete_pochva[i].z,
+delete_pochva[i].w,
+delete_pochva[i].id
+);
+}
 }
 
 void update(game_state& state, struct_item& igrok){

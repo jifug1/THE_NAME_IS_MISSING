@@ -20,6 +20,7 @@ constexpr int MIN_W = -2;
 constexpr int MAX_W = 2;
 constexpr int SPAWN_CHANCE_E = 45;
 constexpr int POCHVA_V_CHUNKE = 400;
+constexpr int TIMER_POCHVA = 20;
 long long make_key(int x, int y, int z, int w);
 long long make_ckey(int x,int y);
 int chunk_of(int position);
@@ -27,7 +28,8 @@ int chunk_of(int position);
 enum struct phase_state{
 standart,
 game_over,
-propustit
+propustit,
+restart,
 };
 enum struct struct_chto_eto{
 object,
@@ -41,7 +43,7 @@ public:
 bool get_pochva();
 void set_pochva(bool x);
 int get_resource();
-void set_resource(int x);
+void set_resource(int x, bool ustanovit = 0);
 bool igrok_mozhet_proyti = true;
 char textura = ' ';
 int id = -1;
@@ -125,6 +127,7 @@ void update_sytost_obj_sytost();
 struct game_state{
 private:
 phase_state phase = phase_state::standart;
+int propustit_vvod_timer = 0;
 public:
 std::unordered_map<long long, std::vector<struct_item>> item;
 std::vector<long long> entity_keys;
@@ -135,6 +138,10 @@ std::unordered_set<long long> vidimye_kletki;
 phase_state get_phase();
 void set_phase(phase_state x);
 bool nachalo = true;
+int get_propustit_vvod_timer();
+void set_propustit_vvod_timer(int x);
+void update_propustit_vvod();
+int timer_pochva = TIMER_POCHVA;
 };
 
 bool proverka(game_state& state, const int x, const int y, const int z, const int w);

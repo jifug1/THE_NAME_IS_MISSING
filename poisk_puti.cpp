@@ -110,7 +110,7 @@ open.push({it->second.f, nkey});
 }
 if(ogranichenie <= 0){e.get_set_entity().set_counter(5);}
 if (!found) {return path;} 
-    
+
 std::vector<struct_xyzw> reversed;
 long long k = key_B;
 while (k != key_A){

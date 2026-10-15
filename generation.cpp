@@ -122,7 +122,7 @@ obj.get_set_xyzw().set_w(svobodnye[index].get_w(),true);
 obj.get_set_object().textura = ',';
 obj.get_set_object().id = 1;
 obj.get_set_object().set_pochva(true);
-obj.get_set_object().set_resource(3);
+obj.get_set_object().set_resource(3,true);
 long long key = make_key(svobodnye[index].get_x(),svobodnye[index].get_y(),svobodnye[index].get_z(),svobodnye[index].get_w());
 state.item[key].push_back(obj);
 state.pochva_keys.push_back(key);

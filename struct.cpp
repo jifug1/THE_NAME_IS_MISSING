@@ -99,4 +99,10 @@ void struct_entity::set_target_index(int x){target_index = x;}
 bool struct_object::get_pochva(){return pochva;}
 void struct_object::set_pochva(bool x){pochva = x;}
 int struct_object::get_resource(){return resource;}
-void struct_object::set_resource(int x){resource = x;}
+void struct_object::set_resource(int x, bool ustanovit){if(ustanovit){resource = x;}else{resource += x;}}
+
+void game_state::update_propustit_vvod(){
+if(propustit_vvod_timer > 0){--propustit_vvod_timer;}
+}
+int game_state::get_propustit_vvod_timer(){return propustit_vvod_timer;}
+void game_state::set_propustit_vvod_timer(int x){propustit_vvod_timer += x;}
