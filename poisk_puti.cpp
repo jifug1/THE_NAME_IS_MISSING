@@ -1,7 +1,6 @@
 #include "poisk_puti.h"
 #include <cstdlib>
 #include <queue>
-#include <vector>
 #include <unordered_map>
 #include <unordered_set>
 

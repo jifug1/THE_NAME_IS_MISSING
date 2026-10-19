@@ -2,6 +2,7 @@
 #include "UI.h"
 #include "generation.h"
 #include "update_game_loop.h"
+#include "item.h"
 
 int main(){
 bool restart = false;
@@ -11,6 +12,7 @@ clear_console();
 game_state state;
 struct_item igrok;
 igrok.get_set_object().textura = set_igrok_textura();
+start_create_type_item();
 start();
 while(state.get_phase() != phase_state::game_over){
 
