@@ -314,6 +314,9 @@ delete_pochva[i].id
 
 void update(game_state& state, struct_item& igrok){
 chunk_proverka(state,igrok);
+for(long long k : state.cells_to_index){
+index_cell(state,k);}
+state.cells_to_index.clear();
 update_pochva(state);
 update_entity(state);
 pereschetat_vidimost(state,igrok);
