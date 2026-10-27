@@ -54,7 +54,7 @@ if(it != state.item.end()){
 auto& vec = it->second;
 for(int index = 0; index < vec.size();){
 if(vec[index].get_chto_eto() == struct_chto_eto::object && vec[index].get_set_object().id == 0){
-vec.erase(vec.begin()+index);
+vec.erase(vec.begin()+index); break;
 }
 else{++index;}
 }
@@ -65,14 +65,7 @@ if(it_cell != state.cells_to_index.end()){state.cells_to_index.erase(key);}}
 else if(ryadom_E > 4){
 if(it == state.item.end()){
 spawn_item(state,x,y,z,w,0);
-state.cells_to_index.insert(key);
 }
-}
-else if(it != state.item.end()){
-state.cells_to_index.insert(key);
-}
-else if(it == state.item.end() && it_cell != state.cells_to_index.end()){
-state.cells_to_index.erase(it_cell);
 }
 }}}}}
 
