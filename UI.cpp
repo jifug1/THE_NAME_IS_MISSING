@@ -3,6 +3,9 @@
 #include <iostream>
 #include <string>
 #include <limits>
+void ignore(){
+std::cin.ignore(std::numeric_limits<std::streamsize>::max(),'\n');
+}
 void get(){
 std::cout << " std::cin.get() ";
 std::cin.get();
@@ -11,9 +14,9 @@ char set_igrok_textura(){
 char textura = '2';
 std::cout << " char: ";
 std::cin >> std::noskipws >> textura;
-
-if(std::cin.fail() || textura == '\n'){std::cin.clear(); std::cin.ignore(std::numeric_limits<std::streamsize>::max(),'\n'); return '2';}
 std::cin >> std::skipws;
+if(std::cin.fail() || textura == '\n'){std::cin.clear(); ignore(); return '2';}
+ignore();
 return textura;
 }
 std::string user_string(){
@@ -24,13 +27,31 @@ return user_input;
 int user_int(){
 int user_input = 0;
 std::cin >> user_input;
-if(std::cin.fail()){std::cin.clear(); std::cin.ignore(std::numeric_limits<std::streamsize>::max(),'\n'); return 0;}
+if(std::cin.fail()){std::cin.clear(); ignore(); return 0;}
 return user_input;
 }
+char user_char(){
+char user_input = ' ';
+std::cin >> user_input;
+if(std::cin.fail()){std::cin.clear(); ignore(); return ' ';}
+return user_input;
+}
+void print_pt(struct_item& igrok){
+std::cout << igrok.get_set_object().textura;
+}
+void print_kt(game_state& state, long long key){
+auto it = state.item.find(key);
+if(it == state.item.end() || it->second.empty()){return;}
+uint8_t current_index = 0;
+if(state.v < it->second.size()){
+current_index = state.v;
+}
+std::cout << it->second[current_index].get_set_object().textura;
+}
 void D4(game_state& state, struct_item& igrok, long long key, long long key_2){
-if(key == key_2){std::cout << igrok.get_set_object().textura;}
-else if(state.item.count(key) > 0){std::cout << state.item[key][0].get_set_object().textura;}
-else{std::cout << ".";}
+if(key == key_2){print_pt(igrok);}
+else if(state.item.count(key) > 0){print_kt(state,key);}
+else{std::cout << VOID;}
 }
 void start(){std::cout << "\n THE_NAME_IS_MISSING\n You terminated this program immediately after launching it.\n Type \'exit\' to terminate this program.\n";
 }
@@ -102,7 +123,7 @@ else if(user_input == "exit"){state.set_phase(phase_state::game_over); return;}
 else if(user_input == "|"){
 std::cout << " int: ";
 int podozhdat = user_int();
-if(podozhdat > 0){state.set_propustit_vvod_timer(podozhdat); std::cin.ignore(std::numeric_limits<std::streamsize>::max(),'\n');}
+if(podozhdat > 0){state.set_propustit_vvod_timer(podozhdat); ignore();}
 else{skip(state);}
 }
 else if(user_input == "state.timer_pochva"){std::cout << " " << state.timer_pochva << " ";
@@ -112,6 +133,34 @@ get();
 else if(user_input == "restart"){state.set_phase(phase_state::restart); return;}
 else if(user_input == "get_pochva_keys(state)"){get_pochva_keys(state); skip(state); get();}
 else if(user_input == "state.pochva_keys.size()"){std::cout << " " << state.pochva_keys.size() << " "; get();}
+else if(user_input == "v"){
+std::cout << " uint8_t v == \'" << static_cast<int>(state.v) << "\' v = ";
+state.v = user_int();
+std::cout << " v == \'" << static_cast<int>(state.v) << "\' ";
+skip(state);
+ignore();
+get();
+ignore();
+}
+else if(user_input == "set_igrok_textura()"){igrok.get_set_object().textura = set_igrok_textura();}
+else if(user_input == "VOID"){
+std::cout << " char VOID == \'" << VOID << "\' VOID = ";
+VOID = user_char();
+std::cout << " VOID == \'" << VOID << "\' ";
+skip(state);
+ignore();
+get();
+ignore();
+}
+else if(user_input == "THE_UNKNOWN"){
+std::cout << " char THE_UNKNOWN == \'" << THE_UNKNOWN << "\' THE_UNKNOWN = ";
+THE_UNKNOWN = user_char();
+std::cout << " THE_UNKNOWN == \'" << THE_UNKNOWN << "\' ";
+skip(state);
+ignore();
+get();
+ignore();
+}
 else{
 std::cout << " Unknown command: \'" << user_input << "\'"; 
 zanovo = true;
@@ -153,17 +202,17 @@ else{state.nachalo = false;}
 for(int x = x_maloe; x < x_bolshoe; ++x){
 for(int y = y_maloe; y < y_bolshoe; ++y){
 
-if(igrok.get_set_xyzw().get_x() == x && igrok.get_set_xyzw().get_y() == y){std::cout << igrok.get_set_object().textura;}
+if(igrok.get_set_xyzw().get_x() == x && igrok.get_set_xyzw().get_y() == y){print_pt(igrok);}
 else{
 long long key = make_key(x,y,igrok.get_set_xyzw().get_z(), igrok.get_set_xyzw().get_w());
 
 if(state.vidimye_kletki.count(key) > 0){
 if(state.item.count(key) > 0){
-std::cout << state.item[key][0].get_set_object().textura;
+print_kt(state,key);
 }
-else{std::cout << ".";}
+else{std::cout << VOID;}
 }
-else{std::cout << " ";}
+else{std::cout << THE_UNKNOWN;}
 }}
    if(x >= x_bolshoe - (MAX_W - MIN_W + 1)){
     if(w >= MIN_W){

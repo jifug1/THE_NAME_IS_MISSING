@@ -3,6 +3,7 @@
 #include "poisk_puti.h"
 #include "update_index_by_id.h"
 #include "vidimost.h"
+#include "item.h"
 #include <algorithm>
 
 struct move_task{
@@ -266,9 +267,6 @@ update_eat(state, e.key,e.x,e.y,e.z,e.w,e.id);
 }
 }
 
-void create_na_pochve(game_state& state, int x, int y, int z, int w){
-
-}
 void update_pochva(game_state& state){
 std::vector<pochva_task> delete_pochva;
 if(state.timer_pochva <= 0){
@@ -279,19 +277,17 @@ if(it == state.item.end()){continue;}
 auto& vec = it->second;
 for(int i = vec.size()-1; i >= 0; --i){
 if(vec[i].get_set_object().get_pochva() == false){continue;}
-if(vec[i].get_set_object().get_resource() > 0){create_na_pochve(state,
-vec[i].get_set_xyzw().get_x(),
-vec[i].get_set_xyzw().get_y(),
-vec[i].get_set_xyzw().get_z(),
-vec[i].get_set_xyzw().get_w()
-);
+int x = vec[i].get_set_xyzw().get_x();
+int y = vec[i].get_set_xyzw().get_y();
+int z = vec[i].get_set_xyzw().get_z();
+int w = vec[i].get_set_xyzw().get_w();
+int id = vec[i].get_set_object().id;
+if(vec[i].get_set_object().get_resource() > 0){
+spawn_item(state,x,y,z,w,id);
 vec[i].get_set_object().set_resource(-1,false);
 }
 else{
-delete_pochva.push_back({state.pochva_keys[index],vec[i].get_set_xyzw().get_x(),
-vec[i].get_set_xyzw().get_y(),
-vec[i].get_set_xyzw().get_z(),
-vec[i].get_set_xyzw().get_w(),vec[i].get_set_object().id,index});
+delete_pochva.push_back({state.pochva_keys[index],x,y,z,w,id,index});
 break;
 }
 }}

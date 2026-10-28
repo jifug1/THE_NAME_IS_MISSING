@@ -2,6 +2,8 @@
 #include "update_index_by_id.h"
 std::mt19937 chislo(std::chrono::steady_clock::now().time_since_epoch().count());
 std::uniform_int_distribution<int> local_kak_chasto_spat(30,80);
+char VOID = '.';
+char THE_UNKNOWN = ' ';
 long long make_key(int x, int y, int z, int w){
 long long X = x + 10000;
 long long Y = y + 10000;

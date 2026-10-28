@@ -2,6 +2,7 @@
 std::vector<struct_item> type_item;
 
 void start_create_type_item(){
+type_item.clear();
 struct_item obj;
 obj.set_chto_eto(struct_chto_eto::object);
 obj.get_set_object().id = type_item.size();
@@ -19,6 +20,14 @@ pochva.get_set_object().id = type_item.size();
 pochva.get_set_object().set_pochva(true);
 pochva.get_set_object().set_resource(3,true);
 type_item.push_back(pochva);
+struct_item W;
+W.set_chto_eto(struct_chto_eto::object);
+W.get_set_object().id = type_item.size();
+W.get_set_object().igrok_mozhet_proyti = true;
+W.get_set_object().blokiruet_zrenie = false;
+W.get_set_object().sytost = 5;
+W.get_set_object().textura = 'W';
+type_item.push_back(W);
 }
 void spawn_item(game_state& state, int x, int y, int z, int w, int id){
 

@@ -11,7 +11,7 @@ restart = false;
 clear_console();
 game_state state;
 struct_item igrok;
-igrok.get_set_object().textura = set_igrok_textura();
+igrok.get_set_object().textura = '2';
 start_create_type_item();
 start();
 while(state.get_phase() != phase_state::game_over){

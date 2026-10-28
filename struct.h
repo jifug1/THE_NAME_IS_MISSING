@@ -6,6 +6,7 @@
 #include <unordered_set>
 #include <random>
 #include <chrono>
+#include <cstdint>
 struct game_state;
 
 extern std::mt19937 chislo;
@@ -19,9 +20,12 @@ constexpr int MAX_Z = 2;
 constexpr int MIN_W = -2;
 constexpr int MAX_W = 2;
 constexpr int SPAWN_CHANCE_E = 45;
-constexpr int POCHVA_V_CHUNKE = 400;
+constexpr int POCHVA_V_CHUNKE = 4000;
 constexpr int TIMER_POCHVA = 20;
 constexpr int SKOLKO_RAZ_POVTORIT = 5;
+constexpr int SYTOST_W = 5;
+extern char VOID;
+extern char THE_UNKNOWN;
 long long make_key(int x, int y, int z, int w);
 long long make_ckey(int x,int y);
 int chunk_of(int position);
@@ -144,6 +148,7 @@ int get_propustit_vvod_timer();
 void set_propustit_vvod_timer(int x);
 void update_propustit_vvod();
 int timer_pochva = TIMER_POCHVA;
+uint8_t v = 0;
 };
 
 bool proverka(game_state& state, const int x, const int y, const int z, const int w);

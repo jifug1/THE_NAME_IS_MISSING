@@ -34,6 +34,6 @@ if(id_it == state.index_by_chunk[ckey].end()){return;}
 
 id_it->second.erase(key);
 
-if(id_it->second.empty()) c_it->second.erase(id_it);
-if(c_it->second.empty()) state.index_by_chunk.erase(c_it);
+if(id_it->second.empty()) {c_it->second.erase(id_it);}
+if(c_it->second.empty()) {state.index_by_chunk.erase(c_it);}
 }
