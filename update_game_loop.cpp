@@ -283,7 +283,7 @@ int z = vec[i].get_set_xyzw().get_z();
 int w = vec[i].get_set_xyzw().get_w();
 int id = vec[i].get_set_object().id;
 if(vec[i].get_set_object().get_resource() > 0){
-spawn_item(state,x,y,z,w,id);
+spawn_item(state,x,y,z,w,vec[i].get_set_object().get_id_of_the_item_that_will_be_spawned());
 vec[i].get_set_object().set_resource(-1,false);
 }
 else{

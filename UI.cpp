@@ -43,10 +43,10 @@ void print_kt(game_state& state, long long key){
 auto it = state.item.find(key);
 if(it == state.item.end() || it->second.empty()){return;}
 uint8_t current_index = 0;
-if(state.v < it->second.size()){
+if(static_cast<int>(state.v) < static_cast<int>(it->second.size())){
 current_index = state.v;
 }
-std::cout << it->second[current_index].get_set_object().textura;
+std::cout << it->second[static_cast<int>(current_index)].get_set_object().textura;
 }
 void D4(game_state& state, struct_item& igrok, long long key, long long key_2){
 if(key == key_2){print_pt(igrok);}

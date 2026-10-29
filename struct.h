@@ -44,11 +44,14 @@ struct struct_object{
 private:
 bool pochva = false;
 int resource = 0;
+int id_of_the_item_that_will_be_spawned = -1;
 public:
 bool get_pochva();
 void set_pochva(bool x);
 int get_resource();
 void set_resource(int x, bool ustanovit = 0);
+int get_id_of_the_item_that_will_be_spawned();
+void set_id_of_the_item_that_will_be_spawned(int x);
 bool igrok_mozhet_proyti = true;
 char textura = ' ';
 int id = -1;

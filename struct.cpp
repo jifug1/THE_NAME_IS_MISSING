@@ -108,3 +108,6 @@ if(propustit_vvod_timer > 0){--propustit_vvod_timer;}
 }
 int game_state::get_propustit_vvod_timer(){return propustit_vvod_timer;}
 void game_state::set_propustit_vvod_timer(int x){propustit_vvod_timer += x;}
+
+int struct_object::get_id_of_the_item_that_will_be_spawned(){return id_of_the_item_that_will_be_spawned;}
+void struct_object::set_id_of_the_item_that_will_be_spawned(int x){id_of_the_item_that_will_be_spawned = x;}
