@@ -43,17 +43,18 @@ void print_kt(game_state& state, long long key){
 auto it = state.item.find(key);
 if(it == state.item.end() || it->second.empty()){return;}
 uint8_t current_index = 0;
-if(static_cast<int>(state.v) < static_cast<int>(it->second.size())){
+if(state.v < it->second.size()){
 current_index = state.v;
 }
-std::cout << it->second[static_cast<int>(current_index)].get_set_object().textura;
+else{current_index = it->second.size()-1;}
+std::cout << it->second[current_index].get_set_object().textura;
 }
 void D4(game_state& state, struct_item& igrok, long long key, long long key_2){
 if(key == key_2){print_pt(igrok);}
 else if(state.item.count(key) > 0){print_kt(state,key);}
 else{std::cout << VOID;}
 }
-void start(){std::cout << "\n THE_NAME_IS_MISSING\n You terminated this program immediately after launching it.\n Type \'exit\' to terminate this program.\n";
+void start(){std::cout << "\n THE_NAME_IS_MISSING\n \'exit\'\n";
 }
 void end(){std::cout << "\n return 0;\n";}
 void clear_console(){
@@ -62,8 +63,8 @@ std::cout << "\033[2J\033[H" << std::flush;
 void get_pochva_keys(game_state& state){
 for(int i = 0; i < state.pochva_keys.size(); ++i){
 auto it = state.item.find(state.pochva_keys[i]);
-auto& vec = it->second;
 if(it == state.item.end()){continue;}
+auto& vec = it->second;
 for(int j = 0; j < vec.size(); ++j){
 if(vec[j].get_set_object().get_pochva() == false){continue;}
 std::cout << " " << state.pochva_keys[i] << " " << vec[j].get_set_object().get_resource() << '\n';
@@ -124,7 +125,7 @@ else if(user_input == "|"){
 std::cout << " int: ";
 int podozhdat = user_int();
 if(podozhdat > 0){state.set_propustit_vvod_timer(podozhdat); ignore();}
-else{skip(state);}
+else{skip(state); ignore();}
 }
 else if(user_input == "state.timer_pochva"){std::cout << " " << state.timer_pochva << " ";
 skip(state);
@@ -140,7 +141,6 @@ std::cout << " v == \'" << static_cast<int>(state.v) << "\' ";
 skip(state);
 ignore();
 get();
-ignore();
 }
 else if(user_input == "set_igrok_textura()"){igrok.get_set_object().textura = set_igrok_textura();}
 else if(user_input == "VOID"){
@@ -150,7 +150,6 @@ std::cout << " VOID == \'" << VOID << "\' ";
 skip(state);
 ignore();
 get();
-ignore();
 }
 else if(user_input == "THE_UNKNOWN"){
 std::cout << " char THE_UNKNOWN == \'" << THE_UNKNOWN << "\' THE_UNKNOWN = ";
@@ -159,7 +158,6 @@ std::cout << " THE_UNKNOWN == \'" << THE_UNKNOWN << "\' ";
 skip(state);
 ignore();
 get();
-ignore();
 }
 else{
 std::cout << " Unknown command: \'" << user_input << "\'"; 
