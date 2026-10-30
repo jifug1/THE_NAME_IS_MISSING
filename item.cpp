@@ -19,6 +19,7 @@ pochva.get_set_object().textura = ',';
 pochva.get_set_object().id = type_item.size();
 pochva.get_set_object().set_pochva(true);
 pochva.get_set_object().set_resource(3,true);
+pochva.get_set_object().set_id_of_the_item_that_will_be_spawned(2);
 type_item.push_back(pochva);
 struct_item W;
 W.set_chto_eto(struct_chto_eto::object);
