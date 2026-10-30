@@ -2,7 +2,6 @@
 #include "generation.h"
 #include "poisk_puti.h"
 #include "update_index_by_id.h"
-#include "vidimost.h"
 #include "item.h"
 #include <algorithm>
 
@@ -315,5 +314,4 @@ index_cell(state,k);}
 state.cells_to_index.clear();
 update_pochva(state);
 update_entity(state);
-pereschetat_vidimost(state,igrok);
 }

@@ -3,6 +3,7 @@
 #include "generation.h"
 #include "update_game_loop.h"
 #include "item.h"
+#include "vidimost.h"
 
 int main(){
 bool restart = false;
@@ -18,6 +19,7 @@ while(state.get_phase() != phase_state::game_over){
 
 if(state.get_phase() != phase_state::propustit){update(state,igrok);}
 else{state.set_phase(phase_state::standart);}
+pereschetat_vidimost(state,igrok);
 ui(state,igrok);
 if(state.get_phase() == phase_state::restart){restart = true; break;}
 }

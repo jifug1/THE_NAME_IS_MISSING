@@ -152,6 +152,7 @@ void set_propustit_vvod_timer(int x);
 void update_propustit_vvod();
 int timer_pochva = TIMER_POCHVA;
 uint8_t v = 0;
+uint8_t where_to_look = 0;
 };
 
 bool proverka(game_state& state, const int x, const int y, const int z, const int w);

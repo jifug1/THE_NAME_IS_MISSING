@@ -159,6 +159,20 @@ skip(state);
 ignore();
 get();
 }
+else if(user_input == "<"){
+if(state.where_to_look > 0){
+state.where_to_look -= 1;
+}
+else{state.where_to_look += 7;}
+skip(state);
+}
+else if(user_input == ">"){
+if(state.where_to_look < 7){
+state.where_to_look += 1;
+}
+else{state.where_to_look -= 7;}
+skip(state);
+}
 else{
 std::cout << " Unknown command: \'" << user_input << "\'"; 
 zanovo = true;

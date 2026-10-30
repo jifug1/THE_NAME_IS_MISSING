@@ -57,16 +57,15 @@ double depth = 1.0;
 double start = 0.0;
 double end = 1.0;
 int radius = 20;
-scan(state,px,py,pz,pw,depth,start,end,radius,1,1,false);
-scan(state,px,py,pz,pw,depth,start,end,radius,1,1,true);
+if(state.where_to_look == 0){scan(state,px,py,pz,pw,depth,start,end,radius,1,1,false);}
+else if(state.where_to_look == 1){scan(state,px,py,pz,pw,depth,start,end,radius,1,1,true);}
 
-scan(state,px,py,pz,pw,depth,start,end,radius,-1,1,false);
-scan(state,px,py,pz,pw,depth,start,end,radius,-1,1,true);
+else if(state.where_to_look == 3){scan(state,px,py,pz,pw,depth,start,end,radius,-1,1,false);}
+else if(state.where_to_look == 2){scan(state,px,py,pz,pw,depth,start,end,radius,-1,1,true);}
 
-scan(state,px,py,pz,pw,depth,start,end,radius,-1,-1,false);
-scan(state,px,py,pz,pw,depth,start,end,radius,-1,-1,true);
+else if(state.where_to_look == 4){scan(state,px,py,pz,pw,depth,start,end,radius,-1,-1,false);}
+else if(state.where_to_look == 5){scan(state,px,py,pz,pw,depth,start,end,radius,-1,-1,true);}
 
-scan(state,px,py,pz,pw,depth,start,end,radius,1,-1,false);
-scan(state,px,py,pz,pw,depth,start,end,radius,1,-1,true);
-
+else if(state.where_to_look == 7){scan(state,px,py,pz,pw,depth,start,end,radius,1,-1,false);}
+else if(state.where_to_look == 6){scan(state,px,py,pz,pw,depth,start,end,radius,1,-1,true);}
 }
