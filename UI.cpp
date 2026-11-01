@@ -72,13 +72,16 @@ std::cout << " " << state.pochva_keys[i] << " " << vec[j].get_set_object().get_r
 void skip(game_state& state){state.set_phase(phase_state::propustit);}
 void vvod(game_state& state,struct_item& igrok){
 bool zanovo = false;
+bool skushat = false;
 int px = igrok.get_set_xyzw().get_x();
 int py = igrok.get_set_xyzw().get_y();
 int pz = igrok.get_set_xyzw().get_z();
 int pw = igrok.get_set_xyzw().get_w();
 do{
 zanovo = false;
+skushat = false;
 std::string user_input = user_string();
+if(!user_input.empty() && user_input.back() == 'e'){user_input.pop_back(); skushat = true;}
 if(user_input == "8" || user_input == "k"){
     if(proverka(state,px - 1,py,pz,pw))
     igrok.get_set_xyzw().set_x(-1);}
@@ -119,7 +122,7 @@ else if(user_input == "1" || user_input == "b"){
     if((proverka(state,px+1,py,pz,pw) || proverka(state,px,py-1,pz,pw)) && proverka(state,px+1,py-1,pz,pw)){
     igrok.get_set_xyzw().set_x(1); 
     igrok.get_set_xyzw().set_y(-1);}}
-else if(user_input == "5" || user_input == "."){return;}
+else if(user_input == "5" || user_input == "."){break;}
 else if(user_input == "exit"){state.set_phase(phase_state::game_over); return;}
 else if(user_input == "|"){
 std::cout << " int: ";
@@ -178,6 +181,7 @@ std::cout << " Unknown command: \'" << user_input << "\'";
 zanovo = true;
 }
 }while(zanovo);
+if(skushat){skushat_nyamku(state, igrok);}
 }
 void ne_povtoryaisya(game_state& state, int& x_maloe, int& x_bolshoe,
 int& y_maloe, int& y_bolshoe, struct_item& igrok
@@ -211,6 +215,7 @@ int w = MAX_W;
 long long key_2 = make_key(igrok.get_set_xyzw().get_x(), igrok.get_set_xyzw().get_y(), igrok.get_set_xyzw().get_z(), igrok.get_set_xyzw().get_w());
 if(state.nachalo == false){clear_console();}
 else{state.nachalo = false;}
+std::cout << " " << igrok.get_set_entity().get_sytost() << "\n";
 for(int x = x_maloe; x < x_bolshoe; ++x){
 for(int y = y_maloe; y < y_bolshoe; ++y){
 

@@ -11,6 +11,23 @@ long long Z = z - MIN_Z;
 long long W = w - MIN_W;
 return (((X * 20001) + Y) * (MAX_Z - MIN_Z + 1) + Z) * (MAX_W - MIN_W + 1) + W;
 }
+
+void skushat_nyamku(game_state& state, struct_item& igrok){
+long long key = make_key(igrok.get_set_xyzw().get_x(),igrok.get_set_xyzw().get_y(),igrok.get_set_xyzw().get_z(),igrok.get_set_xyzw().get_w());
+auto it = state.item.find(key);
+if(it == state.item.end()){return;}
+for(int i = 0; i < it->second.size(); ++i){
+if(it->second[i].get_set_object().sytost > 0 && it->second[i].get_chto_eto() == struct_chto_eto::object){igrok.get_set_entity().set_sytost(it->second[i].get_set_object().sytost,false);
+int id = it->second[i].get_set_object().id;
+it->second[i] = it->second.back();
+it->second.pop_back();
+update_index_for_cell(state,key,igrok.get_set_xyzw().get_x(),igrok.get_set_xyzw().get_y(),id);
+if(it->second.empty()){state.item.erase(it);}
+break;
+}
+}
+}
+
 int chunk_of(int position){
 return (position >= 0) ? position / chunk_size :
 -((-position) + chunk_size - 1) / chunk_size;
@@ -69,15 +86,9 @@ int struct_entity::get_id_tseli(){return id_tseli;}
 void struct_entity::set_id_tseli(int x){id_tseli = x;}
 int struct_entity::get_sytost(){return sytost;}
 void struct_entity::set_sytost(int x, bool ustanovit){if(ustanovit){sytost = x;}else{sytost += x;}}
-int struct_entity::get_bodrost(){return bodrost;}
-void struct_entity::set_bodrost(int x, bool ustanovit){if(ustanovit){bodrost = x;}else{bodrost += x;}}
 
-void struct_entity::update_sytost_bodrost(){
-if(spit == false){--sytost; --bodrost;}
-else if(spit == true && bodrost >= kak_chasto_spat){spit = false;}
-else if(spit == true){bodrost += 2;}
-
-if(bodrost <= 0){spit = true;}
+void struct_entity::update_sytost(){
+--sytost;
 if(sytost <= 0){mertv = true;}
 }
 
@@ -85,10 +96,6 @@ void struct_item::update_sytost_obj_sytost(){
 get_set_object().sytost = get_set_entity().get_sytost();
 }
 
-int struct_entity::get_kak_chasto_spat(){return kak_chasto_spat;}
-void struct_entity::set_kak_chasto_spat(int x){kak_chasto_spat = x;}
-int struct_entity::get_spit(){return spit;}
-void struct_entity::set_spit(bool x){spit = x;}
 bool struct_entity::get_mertv(){return mertv;}
 std::vector<struct_xyzw>& struct_entity::get_set_marshrut(){return marshrut;}
 int struct_entity::get_counter(){return counter;}

@@ -8,6 +8,8 @@
 #include <chrono>
 #include <cstdint>
 struct game_state;
+struct struct_item;
+void skushat_nyamku(game_state& state, struct_item& igrok);
 
 extern std::mt19937 chislo;
 extern std::uniform_int_distribution<int> local_kak_chasto_spat;
@@ -88,9 +90,6 @@ struct_xyzw mesto_tseli;
 std::vector<struct_xyzw> marshrut;
 int id_tseli = -1;
 int sytost = 20;
-int kak_chasto_spat = local_kak_chasto_spat(chislo);
-int bodrost = kak_chasto_spat;
-bool spit = false;
 bool mertv = false;
 int counter = 0;
 long long target_key = -1;
@@ -102,13 +101,7 @@ int get_id_tseli();
 void set_id_tseli(int x);
 int get_sytost();
 void set_sytost(int x, bool ustanovit = false);
-int get_bodrost();
-void set_bodrost(int x, bool ustanovit = false);
-void update_sytost_bodrost();
-int get_kak_chasto_spat();
-void set_kak_chasto_spat(int x);
-int get_spit();
-void set_spit(bool x);
+void update_sytost();
 bool get_mertv();
 int get_counter();
 void set_counter(int x,bool ustanovit = 0);
@@ -150,7 +143,7 @@ bool nachalo = true;
 int get_propustit_vvod_timer();
 void set_propustit_vvod_timer(int x);
 void update_propustit_vvod();
-int timer_pochva = TIMER_POCHVA;
+int timer_pochva = 1;
 uint8_t v = 0;
 uint8_t where_to_look = 0;
 };
