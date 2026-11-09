@@ -1,7 +1,6 @@
 #include "struct.h"
 #include "update_index_by_id.h"
 std::mt19937 chislo(std::chrono::steady_clock::now().time_since_epoch().count());
-std::uniform_int_distribution<int> local_kak_chasto_spat(30,80);
 char VOID = '.';
 char THE_UNKNOWN = ' ';
 long long make_key(int x, int y, int z, int w){
@@ -118,3 +117,5 @@ void game_state::set_propustit_vvod_timer(int x){propustit_vvod_timer += x;}
 
 int struct_object::get_id_of_the_item_that_will_be_spawned(){return id_of_the_item_that_will_be_spawned;}
 void struct_object::set_id_of_the_item_that_will_be_spawned(int x){id_of_the_item_that_will_be_spawned = x;}
+
+struct_what_it_eats struct_entity::get_what_it_eats(){return what_it_eats;}

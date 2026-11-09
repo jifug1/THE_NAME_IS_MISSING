@@ -1,7 +1,6 @@
 #ifndef STRUCT_H
 #define STRUCT_H
 #include <vector>
-#include <string>
 #include <unordered_map>
 #include <unordered_set>
 #include <random>
@@ -12,7 +11,6 @@ struct struct_item;
 void skushat_nyamku(game_state& state, struct_item& igrok);
 
 extern std::mt19937 chislo;
-extern std::uniform_int_distribution<int> local_kak_chasto_spat;
 
 constexpr int chunk_size = 40;
 constexpr int iterations = 1000;
@@ -23,6 +21,7 @@ constexpr int MIN_W = -2;
 constexpr int MAX_W = 2;
 constexpr int SPAWN_CHANCE_E = 45;
 constexpr int POCHVA_V_CHUNKE = 4000;
+constexpr int X_V_CHUNKE = 40;
 constexpr int TIMER_POCHVA = 20;
 constexpr int SKOLKO_RAZ_POVTORIT = 5;
 constexpr int SYTOST_W = 5;
@@ -84,6 +83,13 @@ int f = 0;
 struct_xyzw xyzw;
 struct_xyzw otkuda_prishli;
 };
+
+enum struct struct_what_it_eats{
+herbivorous,
+predator,
+omnivorous
+};
+
 struct struct_entity{
 private:
 struct_xyzw mesto_tseli;
@@ -94,6 +100,7 @@ bool mertv = false;
 int counter = 0;
 long long target_key = -1;
 int target_index = -1;
+struct_what_it_eats what_it_eats;
 public:
 struct_xyzw& get_set_mesto_tseli();
 std::vector<struct_xyzw>& get_set_marshrut();
@@ -109,6 +116,7 @@ long long get_target_key();
 void set_target_key(long long x);
 int get_target_index();
 void set_target_index(int x);
+struct_what_it_eats get_what_it_eats();
 };
 struct struct_item{
 private:

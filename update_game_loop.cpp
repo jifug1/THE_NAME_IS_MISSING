@@ -3,6 +3,7 @@
 #include "poisk_puti.h"
 #include "update_index_by_id.h"
 #include "item.h"
+#include "set_target_id.h"
 #include <algorithm>
 
 struct move_task{
@@ -213,13 +214,13 @@ if(e.get_set_entity().get_mertv() == true){
 update_index_for_cell(state,key,ex_,ey_,id);
 if(vec.empty()){
     state.item.erase(key); 
-    state.entity_keys.erase(state.entity_keys.begin()+index); 
+    state.entity_keys.erase(state.entity_keys.begin()+index);
     break;
 }
     continue;
 }
 
-
+set_target_id(state, e);
 if(e.get_set_entity().get_id_tseli() < 0){continue;}
 if(e.get_set_entity().get_counter() > 0){e.get_set_entity().set_counter(-1,false); continue;}
     long long key_2 = e.get_set_entity().get_target_key();
@@ -271,7 +272,10 @@ if(state.timer_pochva <= 0){
 for(int index = state.pochva_keys.size()-1; index >= 0; --index){
 auto it = state.item.find(state.pochva_keys[index]);
 
-if(it == state.item.end()){continue;}
+if(it == state.item.end()){
+state.pochva_keys[index] = state.pochva_keys.back();
+state.pochva_keys.pop_back();
+continue;}
 auto& vec = it->second;
 for(int i = vec.size()-1; i >= 0; --i){
 if(vec[i].get_set_object().get_pochva() == false){continue;}
@@ -313,5 +317,6 @@ index_cell(state,k);}
 state.cells_to_index.clear();
 update_pochva(state);
 igrok.get_set_entity().update_sytost();
+igrok.update_sytost_obj_sytost();
 update_entity(state);
 }

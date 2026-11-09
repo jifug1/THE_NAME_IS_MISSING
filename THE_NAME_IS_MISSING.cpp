@@ -1,6 +1,5 @@
 #include "struct.h"
 #include "UI.h"
-#include "generation.h"
 #include "update_game_loop.h"
 #include "item.h"
 #include "vidimost.h"
