@@ -27,6 +27,7 @@ constexpr int SKOLKO_RAZ_POVTORIT = 5;
 constexpr int SYTOST_W = 5;
 extern char VOID;
 extern char THE_UNKNOWN;
+constexpr int health_sytost_multiplication = 2;
 long long make_key(int x, int y, int z, int w);
 long long make_ckey(int x,int y);
 int chunk_of(int position);
@@ -102,6 +103,8 @@ int counter = 0;
 long long target_key = -1;
 int target_index = -1;
 struct_what_it_eats what_it_eats;
+int health = 100;
+int damage = 10;
 public:
 struct_xyzw& get_set_mesto_tseli();
 std::vector<struct_xyzw>& get_set_marshrut();
@@ -119,6 +122,10 @@ int get_target_index();
 void set_target_index(int x);
 struct_what_it_eats get_what_it_eats();
 int get_how_much_was_spent();
+int get_health();
+void set_health(int x, bool install = 0);
+int get_damage();
+void set_damage(int x, bool install = 0);
 };
 struct struct_item{
 private:

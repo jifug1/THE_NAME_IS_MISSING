@@ -89,7 +89,8 @@ void struct_entity::set_sytost(int x, bool ustanovit){if(ustanovit){sytost = x;}
 void struct_entity::update_sytost(){
 --sytost;
 ++how_much_was_spent;
-if(sytost <= 0){mertv = true;}
+if(sytost <= 0){health -= 100; how_much_was_spent += health_sytost_multiplication * 100;}
+if(health <= 0){mertv = true;}
 }
 
 void struct_item::update_sytost_obj_sytost(){
@@ -121,3 +122,7 @@ void struct_object::set_id_of_the_item_that_will_be_spawned(int x){id_of_the_ite
 
 struct_what_it_eats struct_entity::get_what_it_eats(){return what_it_eats;}
 int struct_entity::get_how_much_was_spent(){return how_much_was_spent;}
+int struct_entity::get_health(){return health;}
+void struct_entity::set_health(int x, bool install){if(install){health = x;}else{health += x;}}
+int struct_entity::get_damage(){return damage;}
+void struct_entity::set_damage(int x, bool install){if(install){damage = x;}else{damage += x;}}
