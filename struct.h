@@ -96,6 +96,7 @@ struct_xyzw mesto_tseli;
 std::vector<struct_xyzw> marshrut;
 int id_tseli = -1;
 int sytost = 20;
+int how_much_was_spent = 0;
 bool mertv = false;
 int counter = 0;
 long long target_key = -1;
@@ -117,6 +118,7 @@ void set_target_key(long long x);
 int get_target_index();
 void set_target_index(int x);
 struct_what_it_eats get_what_it_eats();
+int get_how_much_was_spent();
 };
 struct struct_item{
 private:

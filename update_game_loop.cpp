@@ -260,7 +260,8 @@ auto it = state.item.find(m.old_key);
 if(it == state.item.end()){continue;}
 if(m.old_index < 0 || m.old_index >= (int)it->second.size()){continue;}
 if(it->second[m.old_index].get_chto_eto() != struct_chto_eto::entity){continue;}
-peremestit_entity(state,m.old_key,m.old_index,m.new_x,m.new_y,m.new_z,m.new_w);}
+peremestit_entity(state,m.old_key,m.old_index,m.new_x,m.new_y,m.new_z,m.new_w);
+}
 for(auto& e : delete_eat){
 update_eat(state, e.key,e.x,e.y,e.z,e.w,e.id);
 }
