@@ -126,3 +126,8 @@ int struct_entity::get_health(){return health;}
 void struct_entity::set_health(int x, bool install){if(install){health = x;}else{health += x;}}
 int struct_entity::get_damage(){return damage;}
 void struct_entity::set_damage(int x, bool install){if(install){damage = x;}else{damage += x;}}
+
+long long struct_entity::get_key_who_attacked_me(){return key_who_attacked_me;}
+void struct_entity::set_key_who_attacked_me(long long x){key_who_attacked_me = x;}
+int struct_entity::get_index_who_attacked_me(){return index_who_attacked_me;}
+void struct_entity::set_index_who_attacked_me(int x){index_who_attacked_me = x;}

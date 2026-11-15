@@ -5,6 +5,7 @@
 #include "item.h"
 #include "set_target_id.h"
 #include <algorithm>
+#include <cmath>
 
 struct move_task{
 long long old_key;
@@ -22,6 +23,18 @@ int x,y,z,w;
 int id = -1;
 int index = 0;
 };
+
+void attack(game_state& state, long long key_kto, int index_kto, long long key_kogo, int index_kogo){
+auto it_key_kto = state.item.find(key_kto);
+auto it_key_kogo = state.item.find(key_kogo);
+if(it_key_kto == state.item.end() || it_key_kogo == state.item.end()){return;}
+if(index_kto >= it_key_kto->second.size() || index_kogo >= it_key_kogo->second.size()){return;}
+it_key_kogo->second[index_kogo].get_set_entity().set_health(
+-std::abs(it_key_kto->second[index_kto].get_set_entity().get_damage()),false
+);
+it_key_kogo->second[index_kogo].get_set_entity().set_key_who_attacked_me(key_kto);
+it_key_kogo->second[index_kogo].get_set_entity().set_index_who_attacked_me(index_kto);
+}
 
 void update_eat(game_state& state, long long key, int x, int y, int z, int w, int id){
 auto it = state.item.find(key);

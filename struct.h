@@ -105,6 +105,8 @@ int target_index = -1;
 struct_what_it_eats what_it_eats;
 int health = 100;
 int damage = 10;
+long long key_who_attacked_me = -1;
+int index_who_attacked_me = -1;
 public:
 struct_xyzw& get_set_mesto_tseli();
 std::vector<struct_xyzw>& get_set_marshrut();
@@ -126,6 +128,10 @@ int get_health();
 void set_health(int x, bool install = 0);
 int get_damage();
 void set_damage(int x, bool install = 0);
+long long get_key_who_attacked_me();
+void set_key_who_attacked_me(long long x);
+int get_index_who_attacked_me();
+void set_index_who_attacked_me(int x);
 };
 struct struct_item{
 private:
